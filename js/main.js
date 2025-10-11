@@ -132,9 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         function updateColor(minutes) {
             widget.classList.remove('stopwatch-green', 'stopwatch-orange', 'stopwatch-red');
-            if (minutes >= 110) widget.classList.add('stopwatch-red');
-            else if (minutes >= 90) widget.classList.add('stopwatch-orange');
-            else widget.classList.add('stopwatch-green');
+            if (minutes >= 100) {
+                widget.classList.add('stopwatch-red');
+            } else if (minutes >= 60) {
+                widget.classList.add('stopwatch-orange');
+            } else {
+                widget.classList.add('stopwatch-green');
+            }
         }
         function update() {
             const delta = Date.now() - startTime;
