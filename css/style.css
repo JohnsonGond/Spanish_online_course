@@ -1,174 +1,344 @@
-
+/* --- Base & Mobile-First Styles --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.7;
+    line-height: 1.6;
     color: #343a40;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    padding: 0;
+    padding-bottom: 80px; /* Add padding to the bottom to avoid overlap with the stopwatch on mobile */
 }
+
 .container {
-    max-width: 950px;
     width: 100%;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
+    padding: 20px 15px;
+    box-sizing: border-box;
 }
-header {
-    text-align: center;
-    border-bottom: 3px solid #007bff;
-    padding-bottom: 25px;
-    margin-bottom: 35px;
+
+/* --- Core Slide-Pagination Styles --- */
+.slide {
+    display: none;
 }
+.slide.active {
+    display: block;
+}
+
 header h1 {
+    font-size: 1.8em;
     color: #007bff;
     margin: 0;
-    font-size: 2.4em;
     font-weight: 700;
 }
+
 header p {
-    font-size: 1.2em;
+    font-size: 1em;
     color: #6c757d;
     margin: 8px 0 0;
 }
-main {
-    flex-grow: 1;
-}
-.slide {
-    display: none; /* Hide all slides by default */
-}
-.slide.active {
-    display: block; /* Show the active slide */
-}
+
 .lesson-module {
-    margin-bottom: 40px;
-    padding: 25px;
-    border-left: 5px solid #007bff;
-    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-left: 4px solid #007bff;
+    background-color: #ffffff;
     border-radius: 0 8px 8px 0;
-    position: relative;
 }
+
 .lesson-module h2 {
+    font-size: 1.5em;
     color: #0056b3;
     margin-top: 0;
-    font-size: 1.7em;
     display: flex;
     align-items: center;
 }
-.timing {
-    font-size: 0.7em;
-    font-weight: 600;
-    background-color: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 15px;
-    margin-left: 15px;
+
+/* Make tables scrollable on mobile */
+.vocab-table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0;
 }
 .vocab-table {
     width: 100%;
+    min-width: 500px; /* Prevent squishing, force scroll */
     border-collapse: collapse;
-    margin-top: 20px;
 }
 .vocab-table th, .vocab-table td {
     border: 1px solid #dee2e6;
-    padding: 14px;
+    padding: 12px;
     text-align: left;
 }
 .vocab-table th {
     background-color: #e9ecef;
     font-weight: 600;
 }
+
+/* --- Other element styles --- */
 code {
     background-color: #e9ecef;
     padding: 3px 7px;
     border-radius: 4px;
     font-family: 'SF Mono', 'Courier New', Courier, monospace;
-    font-size: 1.1em;
+    font-size: 1.05em;
     color: #d63384;
 }
-.practice-box {
-    background-color: #e6f7ff;
-    border: 1px solid #b3e0ff;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-.practice-box .title {
-    font-weight: bold;
-    color: #0056b3;
-    font-size: 1.2em;
-}
-.english-comparison {
-    background-color: #fff3cd;
-    border-left: 5px solid #ffc107;
+
+.practice-box, .english-comparison, .goal-box, .company-item {
     padding: 15px;
-    margin: 20px 0;
-    border-radius: 5px;
-}
-.goal-box {
-    background-color: #d1e7dd;
-    border-left: 5px solid #198754;
-    padding: 20px;
     margin-top: 20px;
     border-radius: 5px;
 }
+.practice-box { background-color: #e6f7ff; border-left: 5px solid #17a2b8; }
+.english-comparison { background-color: #fff3cd; border-left: 5px solid #ffc107; }
+.goal-box { background-color: #d1e7dd; border-left: 5px solid #28a745; }
+.company-item { background-color: #f8f9fa; border-left: 5px solid #6c757d; }
+
 .break-section {
     text-align: center;
     padding: 40px;
-    margin: 40px 0;
+    margin: 30px 0;
     background-color: #6c757d;
     color: white;
     border-radius: 8px;
-    font-size: 1.3em;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 300px;
+    font-size: 1.2em;
 }
+
 .pagination-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid #dee2e6;
 }
-.pagination-controls button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.pagination-controls button:hover {
-    background-color: #0056b3;
-}
-.pagination-controls button:disabled {
-    background-color: #c0c0c0;
-    cursor: not-allowed;
-}
-#page-counter {
-    font-size: 1em;
-    color: #6c757d;
-    font-weight: 500;
-}
+
 footer {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 30px;
     padding-top: 20px;
     border-top: 1px solid #dee2e6;
     font-size: 0.9em;
     color: #6c757d;
+}
+
+/* --- Stopwatch Widget Styles (Mobile First) --- */
+#stopwatch-widget {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 8px 15px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: background-image 0.5s ease;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#stopwatch-display {
+    font-size: 1.4em;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.stopwatch-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.3em;
+    cursor: pointer;
+    margin: 0 2px;
+    padding: 5px;
+    opacity: 0.9;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.stopwatch-controls button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* --- Tablet & Desktop Styles --- */
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 950px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        border-bottom: 3px solid #007bff;
+        padding-bottom: 25px;
+        margin-bottom: 35px;
+    }
+
+    header h1 {
+        font-size: 2.4em;
+    }
+    header p {
+        font-size: 1.2em;
+    }
+
+    .lesson-module h2 {
+        font-size: 1.7em;
+    }
+
+    .company-item h3 {
+        font-size: 1.8em; /* Make company names larger on desktop */
+        margin-bottom: 10px;
+    }
+    
+    .vocab-table-wrapper {
+        overflow-x: visible;
+    }
+    .vocab-table {
+        min-width: auto;
+    }
+
+    /* Stopwatch styles for PC */
+    #stopwatch-widget {
+        top: 20px;
+        right: 20px;
+        bottom: auto;
+        left: auto;
+        flex-direction: column;
+        min-width: 170px;
+        border-radius: 8px;
+        padding: 10px 15px;
+        border-top: none;
+    }
+
+    #stopwatch-display {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .stopwatch-controls button {
+        font-size: 1.5em;
+        margin: 0 5px;
+    }
+}
+
+/* --- Other Component Styles --- */
+.speak-icon, .flashcard, .quiz-container, .nav-link, .hidden { /* Placeholder for other styles */ }
+
+/* Color States for Stopwatch */
+.stopwatch-green {
+    background-image: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+.stopwatch-orange {
+    background-image: linear-gradient(45deg, #f39c12, #f1c40f);
+}
+.stopwatch-red {
+    background-image: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+/* Other component styles from previous steps are assumed to be here */
+.speak-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #007bff;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    transition: background-color 0.2s ease-in-out;
+}
+.speak-icon:hover { background-color: #0056b3; }
+.flashcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+.flashcard { width: 200px; height: 120px; perspective: 1000px; background-color: transparent; cursor: pointer; margin: 10px; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px; }
+.flashcard.is-flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; font-size: 1.5em; border-radius: 10px; }
+.flashcard-front { background-color: #e9ecef; color: #0056b3; font-weight: bold; }
+.flashcard-back { background-color: #007bff; color: white; transform: rotateY(180deg); font-size: 1.2em; padding: 10px; }
+.flashcard-back .en { display: block; font-size: 0.9em; margin-bottom: 5px; }
+.flashcard-back .cn { display: block; font-weight: bold; }
+.quiz-container { padding: 20px; }
+.quiz-question { margin-bottom: 25px; }
+.quiz-question p { font-size: 1.3em; font-weight: 500; margin-bottom: 15px; }
+.quiz-options label { display: block; background-color: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 5px; margin-bottom: 10px; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+.quiz-options label:hover { background-color: #e9ecef; }
+.quiz-options input[type="radio"] { margin-right: 10px; }
+.question-feedback { margin-top: 10px; padding: 8px; border-radius: 4px; font-size: 1em; font-weight: bold; display: none; }
+.feedback-correct { background-color: #d4edda; color: #155724; display: inline-block; }
+.feedback-incorrect { background-color: #f8d7da; color: #721c24; display: inline-block; }
+.inter-lesson-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.nav-link { color: #007bff; text-decoration: none; font-size: 1.2em; padding: 8px 15px; border-radius: 5px; transition: background-color 0.2s, color 0.2s; }
+.nav-link:hover { background-color: #e9ecef; }
+.hidden { display: none; }
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.select-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23007bff'%3E%3Cpath d='M8 11L3 6h10L8 11z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none; /* Allows clicks to pass through to the select element */
+}
+
+.slide-jump-menu {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px 40px 8px 15px; /* Add space for the custom arrow */
+    font-size: 1em;
+    border: 2px solid #007bff;
+    border-radius: 50px;
+    background-color: transparent;
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.pagination-controls button {
+    background-color: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    padding: 8px 18px;
+    border-radius: 50px; /* Fully rounded for a modern pill shape */
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.pagination-controls button:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.pagination-controls button:disabled {
+    background-color: transparent;
+    color: #adb5bd;
+    border-color: #adb5bd;
+    cursor: not-allowed;
 }
