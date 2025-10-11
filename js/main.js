@@ -88,7 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeQuiz() {
         const quizContainer = document.querySelector('.quiz-container');
         if (!quizContainer) return;
-        const answers = { q1: 'b', q2: 'a', q3: 'c', q4: 'b', q5: 'c', q6: 'b', q7: 'b' };
+        const answers = {
+            q1: 'b', // Una
+            q2: 'a', // soy
+            q3: 'c', // 电, 电学
+            q4: 'b', // 大学
+            q5: 'c', // es
+            q6: 'b', // 7
+            q7: 'b',  // no se pronuncia
+            q8: 'b',  // hoy
+            q9: 'b',  // informe
+            q10: 'b', // difícil
+            q11: 'b', // La
+            q12: 'a'  // cinco
+        };
         quizContainer.querySelectorAll('input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', (event) => {
                 const qName = event.target.name;
