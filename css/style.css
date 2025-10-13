@@ -5,7 +5,7 @@ body {
     color: #343a40;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 0;
+    padding-top: 80px; /* Global space for the fixed navigation bar */
     padding-bottom: 80px; /* Add padding to the bottom to avoid overlap with the stopwatch on mobile */
 }
 
@@ -35,6 +35,8 @@ header p {
     color: #6c757d;
     margin: 8px 0 0;
 }
+
+
 
 .lesson-module {
     padding: 20px;
@@ -103,12 +105,26 @@ code {
 }
 
 .pagination-controls {
+    /* This is the full-width bar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    z-index: 999;
+    padding: 10px 0; /* Vertical padding for the bar */
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.pagination-inner {
+    /* This container aligns the content */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #dee2e6;
+    width: 100%;
+    padding: 0 15px; /* Side padding for mobile */
+    box-sizing: border-box;
 }
 
 footer {
@@ -163,9 +179,6 @@ footer {
 /* --- Tablet & Desktop Styles --- */
 @media (min-width: 768px) {
     body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         min-height: 100vh;
         padding: 40px 20px;
     }
@@ -193,6 +206,12 @@ footer {
         font-size: 1.2em;
     }
 
+    .pagination-inner {
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 0; /* Remove side padding on desktop */
+    }
+
     .lesson-module h2 {
         font-size: 1.7em;
     }
@@ -211,7 +230,7 @@ footer {
 
     /* Stopwatch styles for PC */
     #stopwatch-widget {
-        top: 20px;
+        top: 80px; /* Moved down to avoid fixed nav bar */
         right: 20px;
         bottom: auto;
         left: auto;
@@ -376,4 +395,45 @@ footer {
     color: #adb5bd;
     border-color: #adb5bd;
     cursor: not-allowed;
+}
+
+/* --- Collapsible Stopwatch for Mobile --- */
+@media (max-width: 767px) {
+    #stopwatch-display {
+        cursor: pointer;
+        /* Add a visual cue for clickability */
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+    }
+
+    #stopwatch-display:hover {
+        background-color: rgba(0,0,0,0.1);
+    }
+
+    .stopwatch-controls {
+        /* Smooth transition for appearing/disappearing */
+        transition: opacity 0.2s ease-out, max-height 0.3s ease-in-out, visibility 0.2s, margin 0.3s, padding 0.3s;
+        opacity: 1;
+        visibility: visible;
+        max-height: 100px; /* Set a max-height to transition from */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+
+    #stopwatch-widget.collapsed {
+        /* When collapsed, the widget is just a bar with the time */
+        justify-content: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    #stopwatch-widget.collapsed .stopwatch-controls {
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+    }
 }

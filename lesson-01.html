@@ -8,7 +8,8 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="content-wrapper">
+        <div class="container">
         <header>
             <h1>西班牙语深度定制第一课</h1>
             <p>学员: 赵文清 | 阶段: 第一阶段 (A1) | 课时: 2小时集训</p>
@@ -41,19 +42,24 @@
                     <li><strong>书面作业:</strong> 完成一份简单的填空练习，巩固冠词 (<code>un/una</code>) 和动词 <code>ser</code><span class="speak-icon" data-text="ser"></span> 的用法。</li>
                     <li><strong>探索任务:</strong> 访问 <a href="https://www.iberdrola.com" target="_blank">Iberdrola</a> 的网站，在首页上找到并圈出单词 <code>energía</code><span class="speak-icon" data-text="energía"></span> (能源) 或 <code>ingeniería</code><span class="speak-icon" data-text="ingeniería"></span> (工程)。截图发给我。</li>
                 </ol></div></div>
-        </main>
+        </header>
 
         <div class="pagination-controls">
-            <button id="prev-btn">上一页</button>
-            <div class="select-wrapper"><select id="slide-jump-menu" class="slide-jump-menu"></select></div>
-            <span id="page-counter"></span>
-            <button id="next-btn">下一页</button>
+            <div class="pagination-inner">
+                <button id="prev-btn" title="上一页">«</button>
+                <div class="select-wrapper"><select id="slide-jump-menu" class="slide-jump-menu"></select></div>
+                <span id="page-counter"></span>
+                <button id="next-btn" title="下一页">»</button>
+            </div>
         </div>
+
+        <main>
 
         <footer>
             <div class="inter-lesson-nav"><a id="prev-lesson-link" class="nav-link hidden" href="#">&laquo; 上一课</a><a id="home-link" class="nav-link" href="index.html">返回目录</a><a id="next-lesson-link" class="nav-link hidden" href="#">下一课 &raquo;</a></div>
             <p>为赵文清同学定制的教学计划 | 线上视频教学适用</p>
         </footer>
+    </div>
     </div>
 
     <div id="stopwatch-widget" class="stopwatch-green"><div id="stopwatch-display">00:00:00</div><div class="stopwatch-controls"><button id="stopwatch-toggle">▶️</button><button id="stopwatch-reset">🔄</button></div></div>

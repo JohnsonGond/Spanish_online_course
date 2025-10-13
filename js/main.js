@@ -144,14 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- STOPWATCH WIDGET LOGIC (REFACTORED WITH TOGGLE BUTTON) ---
+    // --- STOPWATCH WIDGET LOGIC (WITH COLLAPSIBLE UI) ---
     function initializeStopwatch() {
         const display = document.getElementById('stopwatch-display');
         if (!display) return;
         const toggleBtn = document.getElementById('stopwatch-toggle');
         const resetBtn = document.getElementById('stopwatch-reset');
         const widget = document.getElementById('stopwatch-widget');
+        
         let intervalId = null, startTime = 0, elapsed = 0;
+        let collapseTimeout = null;
+        const isMobile = window.innerWidth < 768;
 
         function formatTime(ms) {
             const totalSeconds = Math.floor(ms / 1000);
@@ -160,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const s = (totalSeconds % 60).toString().padStart(2, '0');
             return `${h}:${m}:${s}`;
         }
+
         function updateColor(minutes) {
             widget.classList.remove('stopwatch-green', 'stopwatch-orange', 'stopwatch-red');
             if (minutes >= 100) {
@@ -170,18 +174,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 widget.classList.add('stopwatch-green');
             }
         }
+
         function update() {
             const delta = Date.now() - startTime;
             const currentElapsed = elapsed + delta;
             display.textContent = formatTime(currentElapsed);
             updateColor(currentElapsed / 60000);
         }
+
+        // --- Auto-collapse logic for mobile ---
+        function resetCollapseTimer() {
+            if (!isMobile) return;
+            clearTimeout(collapseTimeout);
+            collapseTimeout = setTimeout(() => {
+                widget.classList.add('collapsed');
+            }, 5000); // Collapse after 5 seconds of inactivity
+        }
+
+        function toggleCollapse(forceCollapse = false) {
+            if (!isMobile) return;
+            
+            if (forceCollapse) {
+                 widget.classList.add('collapsed');
+                 clearTimeout(collapseTimeout);
+            } else {
+                 widget.classList.toggle('collapsed');
+            }
+
+            // If it's now expanded, start the timer to auto-collapse it
+            if (!widget.classList.contains('collapsed')) {
+                resetCollapseTimer();
+            } else {
+                clearTimeout(collapseTimeout);
+            }
+        }
+
         function start() {
             if (intervalId) return;
             startTime = Date.now();
             intervalId = setInterval(update, 1000);
             toggleBtn.innerHTML = '⏸️';
+            resetCollapseTimer();
         }
+
         function pause() {
             if (!intervalId) return;
             clearInterval(intervalId);
@@ -189,7 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
             elapsed += delta;
             intervalId = null;
             toggleBtn.innerHTML = '▶️';
+            resetCollapseTimer();
         }
+
         function reset() {
             pause();
             elapsed = 0;
@@ -197,12 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
             updateColor(0);
             localStorage.removeItem('stopwatchState');
             toggleBtn.innerHTML = '▶️';
+            resetCollapseTimer();
         }
+
         function saveState() {
             if (intervalId) pause();
             const state = { elapsed };
             localStorage.setItem('stopwatchState', JSON.stringify(state));
         }
+
         function loadState() {
             const savedState = JSON.parse(localStorage.getItem('stopwatchState'));
             if (savedState) {
@@ -211,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateColor(elapsed / 60000);
             }
         }
+
         function toggle() {
             if (intervalId) {
                 pause();
@@ -218,10 +259,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 start();
             }
         }
+
+        // --- Event Listeners ---
         window.addEventListener('beforeunload', saveState);
-        toggleBtn.addEventListener('click', toggle);
-        resetBtn.addEventListener('click', reset);
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from bubbling to the display
+            toggle();
+        });
+        resetBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from bubbling to the display
+            reset();
+        });
+        display.addEventListener('click', () => toggleCollapse());
+
+        // --- Initial State ---
         loadState();
+        if (isMobile) {
+            widget.classList.add('collapsed');
+        }
     }
 
     // --- INITIALIZATION ORDER ---
