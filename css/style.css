@@ -234,7 +234,7 @@ footer {
 }
 
 /* --- Other Component Styles --- */
-.speak-icon, .flashcard, .quiz-container, .nav-link, .hidden { /* Placeholder for other styles */ }
+.flashcard, .quiz-container, .nav-link, .hidden { /* Placeholder for other styles */ }
 
 /* Color States for Stopwatch */
 .stopwatch-green {

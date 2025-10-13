@@ -61,16 +61,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- TEXT-TO-SPEECH LOGIC ---
+    // --- TEXT-TO-SPEECH LOGIC (ENHANCED FOR VOICE SELECTION) ---
     function initializeSpeakIcons() {
+        let spanishVoice = null;
+
+        // This function tries to find and load a specific Spanish voice.
+        function loadSpanishVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            // Prefer a voice specifically for Spanish (Spain).
+            spanishVoice = voices.find(voice => voice.lang === 'es-ES');
+            // As a fallback, find any available Spanish voice.
+            if (!spanishVoice) {
+                spanishVoice = voices.find(voice => voice.lang.startsWith('es-'));
+            }
+        }
+
+        // The list of voices is loaded asynchronously. We need to wait for it.
+        loadSpanishVoice();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = loadSpanishVoice;
+        }
+
         document.querySelectorAll('.speak-icon').forEach(icon => {
             icon.addEventListener('click', (e) => {
                 e.stopPropagation();
+                // Cancel any ongoing speech to prevent overlap.
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+
                 const textToSpeak = e.target.closest('.speak-icon').getAttribute('data-text');
                 if (textToSpeak && window.speechSynthesis) {
                     const utterance = new SpeechSynthesisUtterance(textToSpeak);
                     utterance.lang = 'es-ES';
                     utterance.rate = 0.9;
+                    
+                    // If our specific Spanish voice was found, use it.
+                    if (spanishVoice) {
+                        utterance.voice = spanishVoice;
+                    }
+                    
                     window.speechSynthesis.speak(utterance);
                 }
             });
