@@ -8,7 +8,7 @@ module.exports = async function (context, req) {
     if (!textToSpeak) {
         context.res = {
             status: 400,
-            body: "Bad Request: Please pass a \"text\" property in the body."
+            body: "Bad Request: Please pass a 'text' property in the body."
         };
         return;
     }
@@ -24,29 +24,45 @@ module.exports = async function (context, req) {
         return;
     }
 
-    // Use a Promise to handle the async SDK logic
+    // Use a Promise to handle the async SDK logic with proper AudioConfig
     const synthesizeSpeech = () => new Promise((resolve, reject) => {
         const speechConfig = sdk.SpeechConfig.fromSubscription(speechKey, speechRegion);
         speechConfig.speechSynthesisVoiceName = "es-ES-ElviraNeural";
         speechConfig.speechSynthesisOutputFormat = sdk.SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3;
 
-        const synthesizer = new sdk.SpeechSynthesizer(speechConfig, null);
+        // Correct way to handle in-memory synthesis:
+        const pushStream = sdk.AudioOutputStream.createPushStream();
+        const audioConfig = sdk.AudioConfig.fromStreamOutput(pushStream);
+
+        const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
+
+        const audioData = [];
+        pushStream.on('data', (data) => {
+            audioData.push(data);
+        });
+
+        pushStream.on('close', () => {
+            const finalBuffer = Buffer.concat(audioData);
+            resolve(finalBuffer);
+        });
 
         synthesizer.speakTextAsync(
             textToSpeak,
             result => {
                 synthesizer.close();
                 if (result.reason === sdk.ResultReason.SynthesizingAudioCompleted) {
-                    resolve(Buffer.from(result.audioData));
+                    // Data is handled by the stream events.
                 } else {
-                    console.error("Speech synthesis canceled: " + result.errorDetails);
-                    reject("Speech synthesis failed");
+                    const errorDetails = `Speech synthesis canceled: ${result.errorDetails}`;
+                    console.error(errorDetails);
+                    reject(errorDetails);
                 }
             },
             error => {
-                console.error("Error during speech synthesis: " + error);
+                const errorDetails = `Error during speech synthesis: ${error}`;
+                console.error(errorDetails);
                 synthesizer.close();
-                reject("Speech synthesis error");
+                reject(errorDetails);
             }
         );
     });
@@ -59,12 +75,13 @@ module.exports = async function (context, req) {
                 'Content-Type': 'audio/mpeg',
                 'Content-Length': audioBuffer.length
             },
+            isRaw: true, // Important for sending binary data
             body: audioBuffer
         };
     } catch (error) {
         context.res = {
             status: 500,
-            body: error
+            body: error.toString()
         };
     }
 };
