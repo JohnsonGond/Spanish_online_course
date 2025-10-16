@@ -1,0 +1,9 @@
+{
+  "name": "ace-spanish-course",
+  "version": "1.0.0",
+  "description": "Customized Spanish course for Zhao Wenqing with professional TTS.",
+  "private": true,
+  "dependencies": {
+    "microsoft-cognitiveservices-speech-sdk": "^1.33.1"
+  }
+}

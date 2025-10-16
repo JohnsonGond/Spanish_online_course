@@ -61,47 +61,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- TEXT-TO-SPEECH LOGIC (ENHANCED FOR VOICE SELECTION) ---
+    // --- TEXT-TO-SPEECH LOGIC (AZURE TTS API) ---
     function initializeSpeakIcons() {
-        let spanishVoice = null;
-
-        // This function tries to find and load a specific Spanish voice.
-        function loadSpanishVoice() {
-            const voices = window.speechSynthesis.getVoices();
-            // Prefer a voice specifically for Spanish (Spain).
-            spanishVoice = voices.find(voice => voice.lang === 'es-ES');
-            // As a fallback, find any available Spanish voice.
-            if (!spanishVoice) {
-                spanishVoice = voices.find(voice => voice.lang.startsWith('es-'));
-            }
-        }
-
-        // The list of voices is loaded asynchronously. We need to wait for it.
-        loadSpanishVoice();
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = loadSpanishVoice;
-        }
+        const audio = new Audio();
+        let isPlaying = false;
 
         document.querySelectorAll('.speak-icon').forEach(icon => {
-            icon.addEventListener('click', (e) => {
+            icon.addEventListener('click', async (e) => {
                 e.stopPropagation();
-                // Cancel any ongoing speech to prevent overlap.
-                if (window.speechSynthesis.speaking) {
-                    window.speechSynthesis.cancel();
+
+                if (isPlaying) {
+                    // Optional: stop current audio if clicked again
+                    // audio.pause();
+                    // isPlaying = false;
+                    // icon.classList.remove('speaking');
+                    return; // Or, prevent new requests while audio is playing
                 }
 
                 const textToSpeak = e.target.closest('.speak-icon').getAttribute('data-text');
-                if (textToSpeak && window.speechSynthesis) {
-                    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                    utterance.lang = 'es-ES';
-                    utterance.rate = 0.9;
-                    
-                    // If our specific Spanish voice was found, use it.
-                    if (spanishVoice) {
-                        utterance.voice = spanishVoice;
+                if (!textToSpeak) return;
+
+                // 1. Provide visual feedback
+                icon.classList.add('speaking');
+                isPlaying = true;
+
+                try {
+                    // 2. Call our backend API
+                    const response = await fetch('/api/speak', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: textToSpeak }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
                     }
+
+                    // 3. Play the returned audio
+                    const audioBlob = await response.blob();
+                    const audioUrl = URL.createObjectURL(audioBlob);
                     
-                    window.speechSynthesis.speak(utterance);
+                    audio.src = audioUrl;
+                    audio.play();
+
+                    // 4. Clean up after audio finishes
+                    audio.onended = () => {
+                        icon.classList.remove('speaking');
+                        URL.revokeObjectURL(audioUrl);
+                        isPlaying = false;
+                    };
+                    audio.onerror = () => { // Handle potential playback errors
+                         icon.classList.remove('speaking');
+                         URL.revokeObjectURL(audioUrl);
+                         isPlaying = false;
+                         console.error("Audio playback error.");
+                    }
+
+                } catch (error) {
+                    console.error('Text-to-speech failed:', error);
+                    // Remove visual feedback on error
+                    icon.classList.remove('speaking');
+                    isPlaying = false;
                 }
             });
         });
