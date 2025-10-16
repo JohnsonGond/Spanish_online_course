@@ -6,7 +6,5 @@
   "scripts": {
     "build": "echo \"No build required.\""
   },
-  "dependencies": {
-    "microsoft-cognitiveservices-speech-sdk": "^1.33.1"
-  }
+  "dependencies": {}
 }
