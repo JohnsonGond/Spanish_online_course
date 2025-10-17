@@ -15,12 +15,27 @@ body {
     box-sizing: border-box;
 }
 
+main {
+    position: relative; /* Establishes a positioning context for slides */
+    transition: height 0.4s ease-in-out; /* Animate height changes */
+}
+
 /* --- Core Slide-Pagination Styles --- */
 .slide {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction with hidden slides */
+    transition: opacity 0.4s ease-in-out;
+    visibility: hidden;
 }
+
 .slide.active {
-    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 header h1 {
