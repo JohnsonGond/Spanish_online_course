@@ -66,53 +66,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const audio = new Audio();
         let isPlaying = false;
 
-        document.querySelectorAll('.speak-icon').forEach(icon => {
-            icon.addEventListener('click', async (e) => {
+        const createSpeakHandler = (rate = 'default') => {
+            return async (e) => {
                 e.stopPropagation();
+                if (isPlaying) return;
 
-                if (isPlaying) {
-                    // Optional: stop current audio if clicked again
-                    // audio.pause();
-                    // isPlaying = false;
-                    // icon.classList.remove('speaking');
-                    return; // Or, prevent new requests while audio is playing
-                }
-
-                const textToSpeak = e.target.closest('.speak-icon').getAttribute('data-text');
+                const icon = e.target;
+                const textToSpeak = icon.getAttribute('data-text');
                 if (!textToSpeak) return;
 
-                // 1. Provide visual feedback
                 icon.classList.add('speaking');
                 isPlaying = true;
 
                 try {
-                    // 2. Call our backend API
                     const response = await fetch('/api/speak', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ text: textToSpeak }),
+                        body: JSON.stringify({ 
+                            text: textToSpeak, 
+                            rate: rate === 'slow' ? 'slow' : undefined 
+                        }),
                     });
 
                     if (!response.ok) {
                         throw new Error(`API request failed with status ${response.status}`);
                     }
 
-                    // 3. Play the returned audio
                     const audioBlob = await response.blob();
                     const audioUrl = URL.createObjectURL(audioBlob);
                     
                     audio.src = audioUrl;
                     audio.play();
 
-                    // 4. Clean up after audio finishes
                     audio.onended = () => {
                         icon.classList.remove('speaking');
                         URL.revokeObjectURL(audioUrl);
                         isPlaying = false;
                     };
-                    audio.onerror = () => { // Handle potential playback errors
+                    audio.onerror = () => {
                          icon.classList.remove('speaking');
                          URL.revokeObjectURL(audioUrl);
                          isPlaying = false;
@@ -121,11 +114,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 } catch (error) {
                     console.error('Text-to-speech failed:', error);
-                    // Remove visual feedback on error
                     icon.classList.remove('speaking');
                     isPlaying = false;
                 }
-            });
+            };
+        };
+
+        document.querySelectorAll('.speak-icon').forEach(icon => {
+            icon.addEventListener('click', createSpeakHandler('default'));
+        });
+
+        document.querySelectorAll('.speak-icon-slow').forEach(icon => {
+            icon.addEventListener('click', createSpeakHandler('slow'));
         });
     }
 

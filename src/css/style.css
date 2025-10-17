@@ -281,6 +281,24 @@ footer {
     transition: background-color 0.2s ease-in-out;
 }
 .speak-icon:hover { background-color: #0056b3; }
+
+.speak-icon-slow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #007bff;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8S16.42,20,12,20z M16,11H8v2h8V11z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.speak-icon-slow:hover {
+    background-color: #0056b3;
+}
 .flashcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
 .flashcard { width: 200px; height: 120px; perspective: 1000px; background-color: transparent; cursor: pointer; margin: 10px; }
 .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px; }
@@ -399,6 +417,14 @@ footer {
 
 /* --- Collapsible Stopwatch for Mobile --- */
 @media (max-width: 767px) {
+    #stopwatch-widget {
+        display: none;
+    }
+
+    #page-counter {
+        display: none;
+    }
+
     #stopwatch-display {
         cursor: pointer;
         /* Add a visual cue for clickability */

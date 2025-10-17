@@ -2,7 +2,8 @@
 const https = require('https');
 
 module.exports = async function (context, req) {
-    const textToSpeak = (req.body && req.body.text);
+    const textToSpeak = req.body?.text;
+    const speechRate = req.body?.rate;
 
     if (!textToSpeak) {
         context.res = { status: 400, body: "Bad Request: Please pass a 'text' property in the body." };
@@ -17,11 +18,16 @@ module.exports = async function (context, req) {
         return;
     }
 
+    // Conditionally wrap with prosody tag if rate is provided
+    const textContent = speechRate
+        ? `<prosody rate="${speechRate}">${textToSpeak}</prosody>`
+        : textToSpeak;
+
     // SSML (Speech Synthesis Markup Language) body for the request
     const ssml = `
         <speak version='1.0' xml:lang='es-ES'>
             <voice xml:lang='es-ES' name='es-ES-ElviraNeural'>
-                ${textToSpeak}
+                ${textContent}
             </voice>
         </speak>`;
 
