@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const lessonPlan = ['lesson-01.html'];
 
     // --- ELEMENT SELECTORS ---
-    const mainElement = document.querySelector('main');
     const slides = document.querySelectorAll('.slide');
     const prevButton = document.getElementById('prev-btn');
     const nextButton = document.getElementById('next-btn');
@@ -14,20 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- MAIN SLIDE-PAGINATION LOGIC ---
     function showSlide(index) {
-        if (index < 0 || index >= totalSlides) return;
-
-        const newSlide = slides[index];
-        if (!newSlide) return;
-
-        // Set main container height to the height of the incoming slide
-        if (mainElement) {
-            mainElement.style.height = `${newSlide.scrollHeight}px`;
-        }
-
         currentSlide = index;
         slides.forEach(slide => slide.classList.remove('active'));
-        newSlide.classList.add('active');
-
+        if (slides[index]) {
+            slides[index].classList.add('active');
+        }
         if (pageCounter) {
             pageCounter.textContent = `第 ${index + 1} / ${totalSlides} 页`;
         }
