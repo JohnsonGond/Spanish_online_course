@@ -463,3 +463,18 @@ footer {
         padding: 0;
     }
 }
+
+/* --- Lesson Image Styles --- */
+.lesson-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+.aspect-ratio-21-9 {
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+    width: 100%; /* Ensure it fills the container for aspect-ratio to work well */
+}

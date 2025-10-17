@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- CONFIGURATION ---
-    const lessonPlan = ['lesson-01.html'];
+
+    // --- DATA (from course-data.js) ---
+    const lessonPlan = courseData.lessonPlan || [];
+    const currentPagePath = window.location.pathname.split('/').pop();
+    const quizAnswers = courseData.quizData[currentPagePath];
 
     // --- ELEMENT SELECTORS ---
     const slides = document.querySelectorAll('.slide');
@@ -33,9 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeInterLessonNav() {
         const prevLessonLink = document.getElementById('prev-lesson-link');
         const nextLessonLink = document.getElementById('next-lesson-link');
-        const currentPagePath = window.location.pathname.split('/').pop();
         const currentIndex = lessonPlan.indexOf(currentPagePath);
+        
         if (currentIndex === -1) return;
+
         if (currentIndex > 0 && prevLessonLink) {
             prevLessonLink.href = lessonPlan[currentIndex - 1];
             prevLessonLink.classList.remove('hidden');
@@ -139,29 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- QUIZ LOGIC ---
     function initializeQuiz() {
         const quizContainer = document.querySelector('.quiz-container');
-        if (!quizContainer) return;
-        const answers = {
-            q1: 'b', // Una
-            q2: 'a', // soy
-            q3: 'c', // 电, 电学
-            q4: 'b', // 大学
-            q5: 'c', // es
-            q6: 'b', // 7
-            q7: 'b',  // no se pronuncia
-            q8: 'b',  // hoy
-            q9: 'b',  // informe
-            q10: 'b', // difícil
-            q11: 'b', // La
-            q12: 'a'  // cinco
-        };
+        if (!quizContainer || !quizAnswers) {
+            if (!quizAnswers) console.warn(`No quiz data found for page: ${currentPagePath}`);
+            return;
+        }
+
         quizContainer.querySelectorAll('input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', (event) => {
                 const qName = event.target.name;
                 const sValue = event.target.value;
                 const feedbackEl = document.getElementById(`feedback-${qName}`);
                 if (!feedbackEl) return;
-                feedbackEl.textContent = sValue === answers[qName] ? '正确! (Correct!)' : '错误 (Incorrect)';
-                feedbackEl.className = `question-feedback ${sValue === answers[qName] ? 'feedback-correct' : 'feedback-incorrect'}`;
+                feedbackEl.textContent = sValue === quizAnswers[qName] ? '正确! (Correct!)' : '错误 (Incorrect)';
+                feedbackEl.className = `question-feedback ${sValue === quizAnswers[qName] ? 'feedback-correct' : 'feedback-incorrect'}`;
             });
         });
     }
