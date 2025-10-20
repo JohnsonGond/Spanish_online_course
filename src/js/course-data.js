@@ -1,4 +1,4 @@
-const courseData = {
+export const courseData = {
     lessonPlan: ['lesson-01.html', 'lesson-02.html'],
     quizData: {
         'lesson-01.html': {
@@ -13,7 +13,7 @@ const courseData = {
             q9: 'b',
             q10: 'b',
             q11: 'b',
-            q12: 'a'
+            q12: 'a',
         },
         'lesson-02.html': {
             q1: 'a',
@@ -25,7 +25,7 @@ const courseData = {
             q7: 'a',
             q8: 'a',
             q9: 'b',
-            q10: 'b'
-        }
-    }
+            q10: 'b',
+        },
+    },
 };

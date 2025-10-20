@@ -1,8 +1,13 @@
+import { courseData } from './course-data.js';
 document.addEventListener('DOMContentLoaded', () => {
-
     // --- DATA (from course-data.js) ---
     const lessonPlan = courseData.lessonPlan || [];
-    const currentPagePath = window.location.pathname.split('/').pop();
+    let currentPagePath = window.location.pathname.split('/').pop();
+    if (currentPagePath === '') {
+        currentPagePath = 'index.html'; // Handle root path
+    } else if (!currentPagePath.includes('.')) {
+        currentPagePath += '.html'; // Handle extensionless URLs like /lesson-01
+    }
     const quizAnswers = courseData.quizData[currentPagePath];
 
     // --- ELEMENT SELECTORS ---
@@ -17,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MAIN SLIDE-PAGINATION LOGIC ---
     function showSlide(index) {
         currentSlide = index;
-        slides.forEach(slide => slide.classList.remove('active'));
+        slides.forEach((slide) => slide.classList.remove('active'));
         if (slides[index]) {
             slides[index].classList.add('active');
         }
@@ -37,16 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevLessonLink = document.getElementById('prev-lesson-link');
         const nextLessonLink = document.getElementById('next-lesson-link');
         const currentIndex = lessonPlan.indexOf(currentPagePath);
-        
+
         if (currentIndex === -1) return;
 
-        if (currentIndex > 0 && prevLessonLink) {
-            prevLessonLink.href = lessonPlan[currentIndex - 1];
-            prevLessonLink.classList.remove('hidden');
+        if (prevLessonLink) {
+            if (currentIndex > 0) {
+                prevLessonLink.href = lessonPlan[currentIndex - 1];
+                prevLessonLink.classList.remove('hidden');
+            }
         }
-        if (currentIndex < lessonPlan.length - 1 && nextLessonLink) {
-            nextLessonLink.href = lessonPlan[currentIndex + 1];
-            nextLessonLink.classList.remove('hidden');
+        if (nextLessonLink) {
+            if (currentIndex < lessonPlan.length - 1) {
+                nextLessonLink.href = lessonPlan[currentIndex + 1];
+                nextLessonLink.classList.remove('hidden');
+            }
         }
     }
 
@@ -56,7 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
         slideJumpMenu.innerHTML = '';
         slides.forEach((slide, index) => {
             const titleElement = slide.querySelector('h2');
-            const title = titleElement ? titleElement.textContent.trim() : `第 ${index + 1} 页`;
+            const title = titleElement
+                ? titleElement.textContent.trim()
+                : `第 ${index + 1} 页`;
             const option = new Option(title, index);
             slideJumpMenu.add(option);
         });
@@ -88,19 +99,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ 
-                            text: textToSpeak, 
-                            rate: rate === 'slow' ? 'slow' : undefined 
+                        body: JSON.stringify({
+                            text: textToSpeak,
+                            rate: rate === 'slow' ? 'slow' : undefined,
                         }),
                     });
 
                     if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
+                        throw new Error(
+                            `API request failed with status ${response.status}`,
+                        );
                     }
 
                     const audioBlob = await response.blob();
                     const audioUrl = URL.createObjectURL(audioBlob);
-                    
+
                     audio.src = audioUrl;
                     audio.play();
 
@@ -110,12 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         isPlaying = false;
                     };
                     audio.onerror = () => {
-                         icon.classList.remove('speaking');
-                         URL.revokeObjectURL(audioUrl);
-                         isPlaying = false;
-                         console.error("Audio playback error.");
-                    }
-
+                        icon.classList.remove('speaking');
+                        URL.revokeObjectURL(audioUrl);
+                        isPlaying = false;
+                        console.error('Audio playback error.');
+                    };
                 } catch (error) {
                     console.error('Text-to-speech failed:', error);
                     icon.classList.remove('speaking');
@@ -124,19 +136,21 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         };
 
-        document.querySelectorAll('.speak-icon').forEach(icon => {
+        document.querySelectorAll('.speak-icon').forEach((icon) => {
             icon.addEventListener('click', createSpeakHandler('default'));
         });
 
-        document.querySelectorAll('.speak-icon-slow').forEach(icon => {
+        document.querySelectorAll('.speak-icon-slow').forEach((icon) => {
             icon.addEventListener('click', createSpeakHandler('slow'));
         });
     }
 
     // --- FLASHCARD LOGIC ---
     function initializeFlashcards() {
-        document.querySelectorAll('.flashcard').forEach(card => {
-            card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+        document.querySelectorAll('.flashcard').forEach((card) => {
+            card.addEventListener('click', () =>
+                card.classList.toggle('is-flipped'),
+            );
         });
     }
 
@@ -144,20 +158,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeQuiz() {
         const quizContainer = document.querySelector('.quiz-container');
         if (!quizContainer || !quizAnswers) {
-            if (!quizAnswers) console.warn(`No quiz data found for page: ${currentPagePath}`);
+            if (!quizAnswers)
+                console.warn(`No quiz data found for page: ${currentPagePath}`);
             return;
         }
 
-        quizContainer.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', (event) => {
-                const qName = event.target.name;
-                const sValue = event.target.value;
-                const feedbackEl = document.getElementById(`feedback-${qName}`);
-                if (!feedbackEl) return;
-                feedbackEl.textContent = sValue === quizAnswers[qName] ? '正确! (Correct!)' : '错误 (Incorrect)';
-                feedbackEl.className = `question-feedback ${sValue === quizAnswers[qName] ? 'feedback-correct' : 'feedback-incorrect'}`;
+        quizContainer
+            .querySelectorAll('input[type="radio"]')
+            .forEach((radio) => {
+                radio.addEventListener('change', (event) => {
+                    const qName = event.target.name;
+                    const sValue = event.target.value;
+                    const feedbackEl = document.getElementById(
+                        `feedback-${qName}`,
+                    );
+                    if (!feedbackEl) return;
+                    feedbackEl.textContent =
+                        sValue === quizAnswers[qName]
+                            ? '正确! (Correct!)'
+                            : '错误 (Incorrect)';
+                    feedbackEl.className = `question-feedback ${sValue === quizAnswers[qName] ? 'feedback-correct' : 'feedback-incorrect'}`;
+                });
             });
-        });
     }
 
     // --- STOPWATCH WIDGET LOGIC (WITH COLLAPSIBLE UI) ---
@@ -167,21 +189,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleBtn = document.getElementById('stopwatch-toggle');
         const resetBtn = document.getElementById('stopwatch-reset');
         const widget = document.getElementById('stopwatch-widget');
-        
-        let intervalId = null, startTime = 0, elapsed = 0;
+
+        let intervalId = null,
+            startTime = 0,
+            elapsed = 0;
         let collapseTimeout = null;
         const isMobile = window.innerWidth < 768;
 
         function formatTime(ms) {
             const totalSeconds = Math.floor(ms / 1000);
-            const h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
-            const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+            const h = Math.floor(totalSeconds / 3600)
+                .toString()
+                .padStart(2, '0');
+            const m = Math.floor((totalSeconds % 3600) / 60)
+                .toString()
+                .padStart(2, '0');
             const s = (totalSeconds % 60).toString().padStart(2, '0');
             return `${h}:${m}:${s}`;
         }
 
         function updateColor(minutes) {
-            widget.classList.remove('stopwatch-green', 'stopwatch-orange', 'stopwatch-red');
+            widget.classList.remove(
+                'stopwatch-green',
+                'stopwatch-orange',
+                'stopwatch-red',
+            );
             if (minutes >= 100) {
                 widget.classList.add('stopwatch-red');
             } else if (minutes >= 60) {
@@ -209,12 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function toggleCollapse(forceCollapse = false) {
             if (!isMobile) return;
-            
+
             if (forceCollapse) {
-                 widget.classList.add('collapsed');
-                 clearTimeout(collapseTimeout);
+                widget.classList.add('collapsed');
+                clearTimeout(collapseTimeout);
             } else {
-                 widget.classList.toggle('collapsed');
+                widget.classList.toggle('collapsed');
             }
 
             // If it's now expanded, start the timer to auto-collapse it
@@ -260,7 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function loadState() {
-            const savedState = JSON.parse(localStorage.getItem('stopwatchState'));
+            const savedState = JSON.parse(
+                localStorage.getItem('stopwatchState'),
+            );
             if (savedState) {
                 elapsed = savedState.elapsed || 0;
                 display.textContent = formatTime(elapsed);
@@ -278,14 +312,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- Event Listeners ---
         window.addEventListener('beforeunload', saveState);
-        toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent click from bubbling to the display
-            toggle();
-        });
-        resetBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent click from bubbling to the display
-            reset();
-        });
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent click from bubbling to the display
+                toggle();
+            });
+        }
+        if (resetBtn) {
+            resetBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent click from bubbling to the display
+                reset();
+            });
+        }
         display.addEventListener('click', () => toggleCollapse());
 
         // --- Initial State ---
@@ -304,10 +342,17 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeStopwatch();
 
     // --- FINAL STATE RESTORATION ---
-    const savedIndex = parseInt(sessionStorage.getItem('currentSlideIndex')) || 0;
+    const savedIndex =
+        parseInt(sessionStorage.getItem('currentSlideIndex')) || 0;
     showSlide(savedIndex >= 0 && savedIndex < totalSlides ? savedIndex : 0);
 
     // Attach main pagination events
-    if (prevButton) prevButton.addEventListener('click', () => { if (currentSlide > 0) showSlide(currentSlide - 1); });
-    if (nextButton) nextButton.addEventListener('click', () => { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); });
+    if (prevButton)
+        prevButton.addEventListener('click', () => {
+            if (currentSlide > 0) showSlide(currentSlide - 1);
+        });
+    if (nextButton)
+        nextButton.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+        });
 });
