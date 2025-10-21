@@ -4,8 +4,11 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 
 export default [
+    // 1. ESLint's recommended rules
+    js.configs.recommended,
+
+    // 2. Your custom project settings
     {
-        // Global settings for all files
         plugins: {
             prettier: prettierPlugin,
         },
@@ -18,13 +21,9 @@ export default [
             },
         },
         rules: {
-            ...js.configs.recommended.rules, // Start with recommended rules
-            ...prettierConfig.rules, // Disable rules that conflict with Prettier
             'prettier/prettier': [
-                // Add the Prettier rule
-                'warn', // Report Prettier differences as warnings
+                'warn',
                 {
-                    // Prettier options
                     tabWidth: 4,
                     semi: true,
                     singleQuote: true,
@@ -32,4 +31,7 @@ export default [
             ],
         },
     },
+
+    // 3. Prettier config to disable conflicting rules (must be last)
+    prettierConfig,
 ];
