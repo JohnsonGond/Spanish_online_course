@@ -478,3 +478,41 @@ footer {
     object-fit: cover;
     width: 100%; /* Ensure it fills the container for aspect-ratio to work well */
 }
+
+/* --- Dialogue Box Styles --- */
+.dialogue-turn {
+    margin-bottom: 20px; /* 增加每轮对话的间距 */
+    padding: 10px;
+    border-left: 3px solid #007bff; /* 左侧边框，增加视觉区分 */
+    background-color: #f8f9fa; /* 轻微背景色 */
+    border-radius: 0 8px 8px 0;
+}
+
+.dialogue-turn:nth-child(odd) { /* 可以为不同发言人设置不同背景色 */
+    background-color: #e9ecef;
+}
+
+.speaker {
+    font-weight: bold;
+    color: #0056b3; /* 发言人名字颜色 */
+    margin-bottom: 5px;
+}
+
+.spanish-line {
+    margin-bottom: 5px;
+    font-size: 1.1em; /* 西班牙语原文稍大 */
+}
+
+.chinese-translation {
+    font-style: italic;
+    color: #6c757d; /* 中文翻译颜色稍浅 */
+    margin-left: 20px; /* 中文翻译缩进 */
+    font-size: 0.95em; /* 中文翻译稍小 */
+}
+
+.dialogue-box code {
+    background-color: #e0f7fa;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
