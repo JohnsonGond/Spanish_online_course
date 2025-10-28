@@ -45,16 +45,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (currentIndex === -1) return;
 
+        const resetSlideIndex = () => {
+            sessionStorage.removeItem('currentSlideIndex');
+        };
+
         if (prevLessonLink) {
             if (currentIndex > 0) {
                 prevLessonLink.href = lessonPlan[currentIndex - 1];
                 prevLessonLink.classList.remove('hidden');
+                prevLessonLink.addEventListener('click', resetSlideIndex);
             }
         }
         if (nextLessonLink) {
             if (currentIndex < lessonPlan.length - 1) {
                 nextLessonLink.href = lessonPlan[currentIndex + 1];
                 nextLessonLink.classList.remove('hidden');
+                nextLessonLink.addEventListener('click', resetSlideIndex);
             }
         }
     }
