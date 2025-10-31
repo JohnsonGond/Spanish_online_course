@@ -84,8 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(categoryCard);
         }
         
-        // After creating all new speak icons, initialize them
-        initializeSpeakIcons();
+        // After creating all new speak icons, the global call at the end of the script will initialize them.
     }
 
 
