@@ -1,4 +1,5 @@
-import { courseData } from './course-data.js';
+import { courseData, commonExpressions } from './course-data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- DATA (from course-data.js) ---
     const lessonPlan = courseData.lessonPlan || [];
@@ -6,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentPagePath === '') {
         currentPagePath = 'index.html'; // Handle root path
     } else if (!currentPagePath.includes('.')) {
-        currentPagePath += '.html'; // Handle extensionless URLs like /lesson-01
+        currentPagePath += '.html'; // Handle extensionless URLs like /lesson-01, /expressions etc.
     }
+    
     const quizAnswers = courseData.quizData[currentPagePath];
 
     // --- ELEMENT SELECTORS ---
@@ -18,6 +20,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideJumpMenu = document.getElementById('slide-jump-menu');
     const totalSlides = slides.length;
     let currentSlide = 0;
+
+    // --- NEW: EXPRESSIONS PAGE LOGIC ---
+    function initializeExpressionsPage() {
+        if (currentPagePath !== 'expressions.html') return;
+
+        const container = document.getElementById('expressions-container');
+        if (!container) return;
+
+        // Clear any existing content
+        container.innerHTML = '';
+
+        for (const categoryKey in commonExpressions) {
+            const category = commonExpressions[categoryKey];
+
+            // Create card for the category
+            const categoryCard = document.createElement('div');
+            categoryCard.className = 'expression-card';
+
+            // Create and append title
+            const cardTitle = document.createElement('h2');
+            cardTitle.textContent = category.title;
+            categoryCard.appendChild(cardTitle);
+
+            // Create list for expressions
+            const expressionsList = document.createElement('ul');
+            expressionsList.className = 'expression-list';
+
+            category.expressions.forEach(expr => {
+                const listItem = document.createElement('li');
+
+                const spanishSpan = document.createElement('span');
+                spanishSpan.className = 'lang-es';
+                spanishSpan.textContent = expr.spanish;
+                listItem.appendChild(spanishSpan);
+
+                // Add speak icon (normal speed)
+                const speakIcon = document.createElement('span');
+                speakIcon.className = 'speak-icon';
+                speakIcon.setAttribute('data-text', expr.spanish);
+                listItem.appendChild(speakIcon);
+
+                // Add speak icon (slow speed)
+                const speakIconSlow = document.createElement('span');
+                speakIconSlow.className = 'speak-icon-slow';
+                speakIconSlow.setAttribute('data-text', expr.spanish);
+                listItem.appendChild(speakIconSlow);
+
+                const englishSpan = document.createElement('span');
+                englishSpan.className = 'lang-en';
+                englishSpan.textContent = expr.english;
+                listItem.appendChild(englishSpan);
+
+                const chineseSpan = document.createElement('span');
+                chineseSpan.className = 'lang-zh';
+                chineseSpan.textContent = expr.chinese;
+                listItem.appendChild(chineseSpan);
+
+                expressionsList.appendChild(listItem);
+            });
+
+            categoryCard.appendChild(expressionsList);
+            container.appendChild(categoryCard);
+        }
+        
+        // After creating all new speak icons, initialize them
+        initializeSpeakIcons();
+    }
+
 
     // --- MAIN SLIDE-PAGINATION LOGIC ---
     function showSlide(index) {
@@ -164,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeQuiz() {
         const quizContainer = document.querySelector('.quiz-container');
         if (!quizContainer || !quizAnswers) {
-            if (!quizAnswers)
+            if (quizContainer && !quizAnswers)
                 console.warn(`No quiz data found for page: ${currentPagePath}`);
             return;
         }
@@ -340,25 +410,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- INITIALIZATION ORDER ---
-    populateJumpMenu();
+    initializeExpressionsPage(); // Load expressions if on the correct page
+    
+    // The rest of the initializations are for the lesson pages
+    if (slides.length > 0) {
+        populateJumpMenu();
+        const savedIndex =
+            parseInt(sessionStorage.getItem('currentSlideIndex')) || 0;
+        showSlide(savedIndex >= 0 && savedIndex < totalSlides ? savedIndex : 0);
+
+        // Attach main pagination events
+        if (prevButton)
+            prevButton.addEventListener('click', () => {
+                if (currentSlide > 0) showSlide(currentSlide - 1);
+            });
+        if (nextButton)
+            nextButton.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+            });
+    }
+    
     initializeInterLessonNav();
-    initializeSpeakIcons();
     initializeFlashcards();
     initializeQuiz();
     initializeStopwatch();
-
-    // --- FINAL STATE RESTORATION ---
-    const savedIndex =
-        parseInt(sessionStorage.getItem('currentSlideIndex')) || 0;
-    showSlide(savedIndex >= 0 && savedIndex < totalSlides ? savedIndex : 0);
-
-    // Attach main pagination events
-    if (prevButton)
-        prevButton.addEventListener('click', () => {
-            if (currentSlide > 0) showSlide(currentSlide - 1);
-        });
-    if (nextButton)
-        nextButton.addEventListener('click', () => {
-            if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
-        });
+    
+    // Initialize speak icons found on the page at load time.
+    // Note: For expressions page, this is called again after dynamic content is created.
+    initializeSpeakIcons();
 });
