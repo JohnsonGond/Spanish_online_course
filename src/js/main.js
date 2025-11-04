@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slides[index]) {
             slides[index].classList.add('active');
         }
+        sessionStorage.setItem(`currentSlideIndex_${currentPagePath}`, index);
         if (pageCounter) {
             pageCounter.textContent = `第 ${index + 1} / ${totalSlides} 页`;
         }
@@ -415,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (slides.length > 0) {
         populateJumpMenu();
         const savedIndex =
-            parseInt(sessionStorage.getItem('currentSlideIndex')) || 0;
+            parseInt(sessionStorage.getItem(`currentSlideIndex_${currentPagePath}`)) || 0;
         showSlide(savedIndex >= 0 && savedIndex < totalSlides ? savedIndex : 0);
 
         // Attach main pagination events
