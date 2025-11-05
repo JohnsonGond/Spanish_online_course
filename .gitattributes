@@ -1,4 +1,38 @@
-* text eol=crlf
+# Default to CRLF for common text files
+* text=auto
+
+# Explicit line endings for scripts
 *.sh text eol=lf
 *.bash text eol=lf
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
 
+# Explicit CRLF for project text files
+*.js text eol=crlf
+*.ts text eol=crlf
+*.jsx text eol=crlf
+*.tsx text eol=crlf
+*.html text eol=crlf
+*.css text eol=crlf
+*.md text eol=crlf
+*.json text eol=crlf
+*.yml text eol=crlf
+*.yaml text eol=crlf
+*.ini text eol=crlf
+*.conf text eol=crlf
+
+# Treat binary assets as binary (no EOL conversion)
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.webp -text
+*.ico -text
+*.bmp -text
+*.pdf -text
+*.mp3 -text
+*.mp4 -text
+*.wav -text
+*.svg text eol=lf
