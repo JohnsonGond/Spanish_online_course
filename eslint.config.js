@@ -27,8 +27,21 @@ export default [
                     tabWidth: 4,
                     semi: true,
                     singleQuote: true,
+                    // Keep cross-platform noise low while we retain CRLF in repo
+                    endOfLine: 'auto',
                 },
             ],
+        },
+    },
+
+    // 2b. Overrides for CommonJS files in API (Azure Functions)
+    {
+        files: ['api/**/*.js'],
+        languageOptions: {
+            sourceType: 'commonjs',
+            globals: {
+                ...globals.node,
+            },
         },
     },
 

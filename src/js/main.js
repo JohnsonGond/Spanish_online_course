@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (!currentPagePath.includes('.')) {
         currentPagePath += '.html'; // Handle extensionless URLs like /lesson-01, /expressions etc.
     }
-    
+
     const quizAnswers = courseData.quizData[currentPagePath];
 
     // --- ELEMENT SELECTORS ---
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const expressionsList = document.createElement('ul');
             expressionsList.className = 'expression-list';
 
-            category.expressions.forEach(expr => {
+            category.expressions.forEach((expr) => {
                 const listItem = document.createElement('li');
 
                 const spanishSpan = document.createElement('span');
@@ -83,10 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryCard.appendChild(expressionsList);
             container.appendChild(categoryCard);
         }
-        
+
         // After creating all new speak icons, the global call at the end of the script will initialize them.
     }
-
 
     // --- MAIN SLIDE-PAGINATION LOGIC ---
     function showSlide(index) {
@@ -411,12 +410,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZATION ORDER ---
     initializeExpressionsPage(); // Load expressions if on the correct page
-    
+
     // The rest of the initializations are for the lesson pages
     if (slides.length > 0) {
         populateJumpMenu();
         const savedIndex =
-            parseInt(sessionStorage.getItem(`currentSlideIndex_${currentPagePath}`)) || 0;
+            parseInt(
+                sessionStorage.getItem(`currentSlideIndex_${currentPagePath}`),
+            ) || 0;
         showSlide(savedIndex >= 0 && savedIndex < totalSlides ? savedIndex : 0);
 
         // Attach main pagination events
@@ -429,12 +430,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
             });
     }
-    
+
     initializeInterLessonNav();
     initializeFlashcards();
     initializeQuiz();
     initializeStopwatch();
-    
+
     // Initialize speak icons found on the page at load time.
     // Note: For expressions page, this is called again after dynamic content is created.
     initializeSpeakIcons();
