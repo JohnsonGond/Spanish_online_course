@@ -70,6 +70,30 @@
 
 ## 开发日志 (Changelog)
 
+### 2025-11-06: 内容深化与导航优化 (by codex)
+- 复习拆分与导航重构
+  - 将原“第一阶段复习与巩固”（`src/lesson-review-01.html`，覆盖 1–4）的总复习内容，按阶段拆分为两页：
+    - `src/lesson-review-01-02.html`（第一阶段复习 1–2）：发音最小对立、现在时巩固（规则/不规则）、Ser vs Estar 诊所、gustar/反身/hay、口语产出、小测与跳转。
+    - `src/lesson-review-03-04.html`（第二阶段复习 3–4）：过去时对比（Indefinido/Imperfecto/Perfecto）、Futuro/Condicional、Subjuntivo 触发、Por/Para、比较级、应用产出与小测。
+  - 首页导航（`src/index.html`）：在“阶段复习”板块中，保留旧版 `lesson-review-01.html` 作为归档，移至列表最下方并用删除线标记；为各链接加入 emoji 提升辨识度；维持“主线/复习/工具”三段式结构与配色区隔。
+
+- Lesson 4 深化与一致性（`src/lesson-04.html`）
+  - 变位表发音：为 Futuro/Condicional/Subjuntivo/Imperativo 全部变位表逐词补齐发音按钮（正常/慢速），并保留“整表朗读”入口，交互与前几课保持一致。
+  - 规则提示：在 Subjuntivo（WEIRDO）、Condicional、Por/Para 段落加入“规则/对比/反例/边界”提示卡（tip-box），帮助快速建立可迁移的判断线索；修复 WEIRDO 表格若干示例缺少慢速发音的问题。
+  - 样式支持：新增 `.tip-box`（紫色信息框）到 `src/css/style.css`，统一信息框视觉体系，与 `.practice-box/.english-comparison` 风格一致。
+
+- 测验质量与答案解释
+  - 复习A（1–2）答案分布重平衡：重排题目 q3、q4、q6、q7、q10、q11、q12、q13、q15、q18、q20、q21、q22 的选项顺序，使正确项在 a/b/c 位置更均衡；同步更新 `src/js/course-data.js` 答案键，保持题干与中文解释不变。
+  - 说明：如需进一步“运行时随机化”选项，后续可在渲染层加入轻量逻辑并映射正确项。
+
+- 工具与练习的一致性（延续既有工作）
+  - 练习中心（`src/practice.html`）与工具包（`src/toolkit.html`）维持统一风格与底部返回目录布局；Por/Para 与 Subjuntivo 触发 DnD 练习按统一交互反馈。
+  - 常用表达（`src/expressions.html`）继续保留收藏与搜索（localStorage）以及慢速发音覆盖与可访问性。
+
+- 既知限制
+  - TTS 接口 `/api/speak` 在本地开发返回 404（接受现状，未在本轮修复）；E2E 用例保留在 `e2e/` 目录，本地验证使用，未接入 CI。
+
+
 ### 2025-11-06 (续): 课程结构优化与内容深化 (by Gemini)
 - **目标**: 根据教学反馈，优化课程结构，深化核心概念讲解，并增加专门的复习环节以巩固学习效果。
 - **主要成果**:

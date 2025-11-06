@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二阶段复习（第3-4课）</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <div class="container">
+            <header>
+                <h1>第二阶段复习（第3-4课）</h1>
+                <p>重点：叙事过去（Indefinido/Imperfecto/Perfecto）、Futuro/Condicional、Subjuntivo、Por/Para、比较级</p>
+            </header>
+
+            <main>
+                <!-- S1 目标与自我诊断 -->
+                <div class="slide active">
+                    <div class="lesson-module">
+                        <h2>1. 目标与自我诊断</h2>
+                        <div class="goal-box">
+                            <ul>
+                                <li>我能在叙事中正确区分 <code>Pretérito Indefinido</code> 与 <code>Pretérito Imperfecto</code>。</li>
+                                <li>我能识别 <code>Pretérito Perfecto</code> 与 <code>Indefinido</code> 的边界（“今天/这周”等）。</li>
+                                <li>我能用 <code>Futuro</code> 做预测/承诺，用 <code>Condicional</code> 做礼貌请求/建议。</li>
+                                <li>我能判断 <code>Subjuntivo</code> 的常见触发，正确使用 <code>Por</code> 与 <code>Para</code>。</li>
+                                <li>我能完成简短邮件与 60 秒口语 pitch。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S2 过去时对比（讲解） -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>2. 过去时对比（Indefinido vs Imperfecto）</h2>
+                        <div class="practice-box">
+                            <div class="title">判断线索</div>
+                            <ul>
+                                <li><strong>Indefinido</strong>：一次性/已完成、明确起止点（ayer, anoche, en 2019, entonces）。</li>
+                                <li><strong>Imperfecto</strong>：背景/描述/习惯/进行中（antes, siempre, cuando..., mientras...）。</li>
+                            </ul>
+                        </div>
+                        <div class="practice-box">
+                            <div class="title">规则 / 对比 / 反例 / 边界</div>
+                            <ul>
+                                <li><strong>规则</strong>：一次性/已完成（明确时间点）→ <code>Indefinido</code>；背景/描述/习惯/并行发生 → <code>Imperfecto</code>。</li>
+                                <li><strong>对比</strong>：<code>Cuando llegué</code>（到达，已完成）<code>, ella leía</code>（正在读）。</li>
+                                <li><strong>反例</strong>：描述年龄/天气/心情常用 <code>Imperfecto</code>：<code>Tenía 20 años.</code> / <code>Hacía frío.</code></li>
+                                <li><strong>边界</strong>：与“今天/这周/本月/今年”等相关 → 常用 <code>Perfecto</code>；明确过去点 → <code>Indefinido</code>。</li>
+                            </ul>
+                        </div>
+                        <div class="vocab-table-wrapper">
+                            <table class="vocab-table">
+                                <tr><th>类型</th><th>示例</th></tr>
+                                <tr>
+                                    <td>Indefinido</td>
+                                    <td><code>Ayer compré un libro.</code> <span class="speak-icon" data-text="Ayer compré un libro."></span><span class="speak-icon-slow" data-text="Ayer compré un libro."></span>
+                                        <div class="chinese-translation">昨天我买了一本书。（一次性已完成）</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Imperfecto</td>
+                                    <td><code>Cuando era niño, jugaba al fútbol.</code> <span class="speak-icon" data-text="Cuando era niño, jugaba al fútbol."></span><span class="speak-icon-slow" data-text="Cuando era niño, jugaba al fútbol."></span>
+                                        <div class="chinese-translation">我小时候常踢足球。（过去的背景/习惯）</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S3 过去时选择题（6题） -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>3. 过去时选择练习（6题）</h2>
+                        <div class="quiz-container">
+                            <ol>
+                                <li>
+                                    <code>Ayer ____ (ir) al médico.</code>
+                                    <div>
+                                        <label><input type="radio" name="q1" value="a"> iba</label>
+                                        <label><input type="radio" name="q1" value="b"> fui</label>
+                                        <label><input type="radio" name="q1" value="c"> voy</label>
+                                    </div>
+                                    <div id="feedback-q1" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    <code>Cuando era estudiante, ____ (estudiar) por las noches.</code>
+                                    <div>
+                                        <label><input type="radio" name="q2" value="a"> estudié</label>
+                                        <label><input type="radio" name="q2" value="b"> estudiaba</label>
+                                        <label><input type="radio" name="q2" value="c"> estudio</label>
+                                    </div>
+                                    <div id="feedback-q2" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    <code>En 2019 ____ (viajar) a España por primera vez.</code>
+                                    <div>
+                                        <label><input type="radio" name="q3" value="a"> viajé</label>
+                                        <label><input type="radio" name="q3" value="b"> viajaba</label>
+                                        <label><input type="radio" name="q3" value="c"> viajo</label>
+                                    </div>
+                                    <div id="feedback-q3" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    <code>Mientras ella ____ (leer), yo cocinaba.</code>
+                                    <div>
+                                        <label><input type="radio" name="q4" value="a"> leyó</label>
+                                        <label><input type="radio" name="q4" value="b"> leía</label>
+                                        <label><input type="radio" name="q4" value="c"> lee</label>
+                                    </div>
+                                    <div id="feedback-q4" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    <code>De repente ____ (empezar) a llover.</code>
+                                    <div>
+                                        <label><input type="radio" name="q5" value="a"> empezó</label>
+                                        <label><input type="radio" name="q5" value="b"> empezaba</label>
+                                        <label><input type="radio" name="q5" value="c"> empieza</label>
+                                    </div>
+                                    <div id="feedback-q5" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    <code>Siempre ____ (ver) esa serie los domingos.</code>
+                                    <div>
+                                        <label><input type="radio" name="q6" value="a"> vi</label>
+                                        <label><input type="radio" name="q6" value="b"> veía</label>
+                                        <label><input type="radio" name="q6" value="c"> veo</label>
+                                    </div>
+                                    <div id="feedback-q6" class="question-feedback"></div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S4 Present Perfect vs Indefinido -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>4. Perfecto vs Indefinido（与“今天/这周”相关）</h2>
+                        <div class="vocab-table-wrapper">
+                            <table class="vocab-table">
+                                <tr><th>时态</th><th>示例</th></tr>
+                                <tr>
+                                    <td>Perfecto（和现在相关）</td>
+                                    <td><code>Hoy he trabajado mucho.</code> <span class="speak-icon" data-text="Hoy he trabajado mucho."></span><span class="speak-icon-slow" data-text="Hoy he trabajado mucho."></span>
+                                        <div class="chinese-translation">今天我工作了很多。（与现在相关的完成）</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Indefinido（过去已完成）</td>
+                                    <td><code>Ayer trabajé hasta tarde.</code> <span class="speak-icon" data-text="Ayer trabajé hasta tarde."></span><span class="speak-icon-slow" data-text="Ayer trabajé hasta tarde."></span>
+                                        <div class="chinese-translation">昨天我加班到很晚。（明确过去已完成）</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S5 Futuro & Condicional（讲解+题） -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>5. Futuro & Condicional</h2>
+                        <div class="vocab-table-wrapper">
+                            <table class="vocab-table">
+                                <tr><th>时态</th><th>示例</th></tr>
+                                <tr>
+                                    <td>Futuro（预测/承诺/现在推测）</td>
+                                    <td><code>Mañana terminaré el informe.</code> <span class="speak-icon" data-text="Mañana terminaré el informe."></span><span class="speak-icon-slow" data-text="Mañana terminaré el informe."></span>
+                                        <div class="chinese-translation">明天我会完成报告。（将来计划/承诺）</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Condicional（礼貌/建议）</td>
+                                    <td><code>¿Podrías enviarme el archivo?</code> <span class="speak-icon" data-text="¿Podrías enviarme el archivo?"></span><span class="speak-icon-slow" data-text="¿Podrías enviarme el archivo?"></span>
+                                        <div class="chinese-translation">你能把文件发给我吗？（礼貌请求）</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="quiz-container">
+                            <ol>
+                                <li>
+                                    <code>Creo que mañana ____ (llover).</code>
+                                    <div>
+                                        <label><input type="radio" name="q7" value="a"> lloverá</label>
+                                        <label><input type="radio" name="q7" value="b"> llovería</label>
+                                        <label><input type="radio" name="q7" value="c"> llueve</label>
+                                    </div>
+                                    <div id="feedback-q7" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    <code>¿____ (poder) ayudarme con esto?</code>
+                                    <div>
+                                        <label><input type="radio" name="q8" value="a"> Podrás</label>
+                                        <label><input type="radio" name="q8" value="b"> Podrías</label>
+                                        <label><input type="radio" name="q8" value="c"> Puedes</label>
+                                    </div>
+                                    <div id="feedback-q8" class="question-feedback"></div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S6 Subjuntivo 触发（分拣） -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>6. Subjuntivo 触发（分拣）</h2>
+                        <div class="practice-box">
+                            <div class="title">把卡片拖到正确的列</div>
+                            <div class="dnd-board" aria-label="Subjuntivo 触发分拣">
+                                <div class="dnd-column" data-bucket="subj" aria-label="触发虚拟式" tabindex="0">
+                                    <div class="dnd-column-header">触发虚拟式</div>
+                                    <div class="dnd-dropzone"></div>
+                                </div>
+                                <div class="dnd-column" data-bucket="indic" aria-label="直陈/通常不触发" tabindex="0">
+                                    <div class="dnd-column-header">直陈/通常不触发</div>
+                                    <div class="dnd-dropzone"></div>
+                                </div>
+                                <div class="dnd-pool" aria-label="待分拣">
+                                    <div class="dnd-item" draggable="true" data-category="subj"><code>Quiero que vengas.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="indic"><code>Creo que viene.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="subj"><code>Es posible que cambien el plan.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="indic"><code>Es verdad que llega tarde.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="subj"><code>Te recomiendo que descanses.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="indic"><code>Pienso que es buena idea.</code></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S7 Por vs Para（分拣10条） -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>7. Por vs. Para（分拣练习）</h2>
+                        <div class="practice-box">
+                            <div class="title">把句子拖到 por/para 列</div>
+                            <div class="dnd-board">
+                                <div class="dnd-column" data-bucket="por" tabindex="0">
+                                    <div class="dnd-column-header">por</div>
+                                    <div class="dnd-dropzone"></div>
+                                </div>
+                                <div class="dnd-column" data-bucket="para" tabindex="0">
+                                    <div class="dnd-column-header">para</div>
+                                    <div class="dnd-dropzone"></div>
+                                </div>
+                                <div class="dnd-pool">
+                                    <div class="dnd-item" draggable="true" data-category="por"><code>Gracias ____ tu ayuda.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="para"><code>Es ____ mañana.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="por"><code>Trabajé ____ dos horas.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="para"><code>Voy ____ Madrid.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="por"><code>Lo hago ____ ti.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="para"><code>Esto es ____ ti.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="por"><code>Te cambio esto ____ aquello.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="para"><code>Estudio ____ aprobar el examen.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="por"><code>Paso ____ tu oficina.</code></div>
+                                    <div class="dnd-item" draggable="true" data-category="por"><code>Salimos ____ la tarde.</code></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S8 比较级与最高级 -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>8. 比较级与最高级</h2>
+                        <ul>
+                            <li><code>más/menos + 形容词 + que</code>：<code>Este plan es más claro que el anterior.</code> <span class="speak-icon" data-text="Este plan es más claro que el anterior."></span><span class="speak-icon-slow" data-text="Este plan es más claro que el anterior."></span>
+                                <div class="chinese-translation">这个方案比之前那个更清晰。</div>
+                            </li>
+                            <li><code>tan + 形容词 + como</code>：<code>La solución es tan viable como la tuya.</code> <span class="speak-icon" data-text="La solución es tan viable como la tuya."></span><span class="speak-icon-slow" data-text="La solución es tan viable como la tuya."></span>
+                                <div class="chinese-translation">这个方案和你的同样可行。</div>
+                            </li>
+                            <li><code>el/la más + 形容词</code>：<code>Es la opción más eficiente.</code> <span class="speak-icon" data-text="Es la opción más eficiente."></span><span class="speak-icon-slow" data-text="Es la opción más eficiente."></span>
+                                <div class="chinese-translation">这是效率最高的选项。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- S9 产出任务：邮件 + 口语 Pitch -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>9. 产出任务：邮件 + 口语 Pitch</h2>
+                        <div class="practice-box">
+                            <div class="title">A. 邮件（含截止与礼貌收尾）</div>
+                            <p>模板：<code>¿Podrías...</code> / <code>Es para ...</code> / <code>Gracias de antemano.</code></p>
+                            <p>示例：<code>¿Podrías compartir el borrador hoy? Es para la reunión de mañana. Gracias de antemano.</code> <span class="speak-icon" data-text="¿Podrías compartir el borrador hoy? Es para la reunión de mañana. Gracias de antemano."></span><span class="speak-icon-slow" data-text="¿Podrías compartir el borrador hoy? Es para la reunión de mañana. Gracias de antemano."></span>
+                                <div class="chinese-translation">你今天能分享一下草稿吗？这是为了明天的会议。先行致谢。</div>
+                            </p>
+                        </div>
+                        <div class="practice-box">
+                            <div class="title">B. 口语 Pitch（60 秒）</div>
+                            <ol>
+                                <li>开场：<code>El mes que viene...</code>（Futuro）</li>
+                                <li>请求/建议：<code>¿Podrías...?</code> / <code>Yo en tu lugar, ... + cond.</code></li>
+                                <li>收尾愿望：<code>Ojalá...</code>（Subj.）</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S10 小测（10题） -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>10. 小测（10题）</h2>
+                        <div class="quiz-container">
+                            <ol>
+                                <li>
+                                    过去时：<br>
+                                    <code>Cuando era pequeño, ____ (vivir) en Sevilla.</code>
+                                    <div>
+                                        <label><input type="radio" name="q9" value="a"> vivía</label>
+                                        <label><input type="radio" name="q9" value="b"> viví</label>
+                                        <label><input type="radio" name="q9" value="c"> vivo</label>
+                                    </div>
+                                    <div id="feedback-q9" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Perfecto vs Indefinido：<br>
+                                    <code>Esta semana ____ (hacer) mucho frío.</code>
+                                    <div>
+                                        <label><input type="radio" name="q10" value="a"> ha hecho</label>
+                                        <label><input type="radio" name="q10" value="b"> hizo</label>
+                                        <label><input type="radio" name="q10" value="c"> hace</label>
+                                    </div>
+                                    <div id="feedback-q10" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Futuro：<br>
+                                    <code>Mañana ____ (llegar) temprano.</code>
+                                    <div>
+                                        <label><input type="radio" name="q11" value="a"> llegará</label>
+                                        <label><input type="radio" name="q11" value="b"> llegaría</label>
+                                        <label><input type="radio" name="q11" value="c"> llegó</label>
+                                    </div>
+                                    <div id="feedback-q11" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Condicional（礼貌）：<br>
+                                    <code>¿____ (poder) enviarme el informe?</code>
+                                    <div>
+                                        <label><input type="radio" name="q12" value="a"> Puedes</label>
+                                        <label><input type="radio" name="q12" value="b"> Podrás</label>
+                                        <label><input type="radio" name="q12" value="c"> Podrías</label>
+                                    </div>
+                                    <div id="feedback-q12" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Subjuntivo 触发：<br>
+                                    <code>Es importante que todos ____ (estar) listos.</code>
+                                    <div>
+                                        <label><input type="radio" name="q13" value="a"> estarán</label>
+                                        <label><input type="radio" name="q13" value="b"> están</label>
+                                        <label><input type="radio" name="q13" value="c"> estén</label>
+                                    </div>
+                                    <div id="feedback-q13" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Por/Para：<br>
+                                    <code>Este informe es ____ mañana.</code>
+                                    <div>
+                                        <label><input type="radio" name="q14" value="a"> para</label>
+                                        <label><input type="radio" name="q14" value="b"> por</label>
+                                        <label><input type="radio" name="q14" value="c"> por para</label>
+                                    </div>
+                                    <div id="feedback-q14" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Por/Para：<br>
+                                    <code>Lo hago ____ ti.</code>
+                                    <div>
+                                        <label><input type="radio" name="q15" value="a"> para</label>
+                                        <label><input type="radio" name="q15" value="b"> por</label>
+                                        <label><input type="radio" name="q15" value="c"> por para</label>
+                                    </div>
+                                    <div id="feedback-q15" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    比较级：<br>
+                                    <code>Esta opción es ____ eficiente que la anterior.</code>
+                                    <div>
+                                        <label><input type="radio" name="q16" value="a"> más</label>
+                                        <label><input type="radio" name="q16" value="b"> tan</label>
+                                        <label><input type="radio" name="q16" value="c"> la más</label>
+                                    </div>
+                                    <div id="feedback-q16" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Subjuntivo 识别：<br>
+                                    <code>Ojalá todo ____ bien.</code>
+                                    <div>
+                                        <label><input type="radio" name="q17" value="a"> va</label>
+                                        <label><input type="radio" name="q17" value="b"> irá</label>
+                                        <label><input type="radio" name="q17" value="c"> vaya</label>
+                                    </div>
+                                    <div id="feedback-q17" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Perfecto（与现在相关）：<br>
+                                    <code>Hoy ____ (terminar) dos tareas.</code>
+                                    <div>
+                                        <label><input type="radio" name="q18" value="a"> he terminado</label>
+                                        <label><input type="radio" name="q18" value="b"> terminé</label>
+                                        <label><input type="radio" name="q18" value="c"> termino</label>
+                                    </div>
+                                    <div id="feedback-q18" class="question-feedback"></div>
+                                </li>
+                                <li>
+                                    Imperfecto（背景）：<br>
+                                    <code>En aquella época ____ (trabajar) en Madrid.</code>
+                                    <div>
+                                        <label><input type="radio" name="q19" value="a"> trabajé</label>
+                                        <label><input type="radio" name="q19" value="b"> trabajo</label>
+                                        <label><input type="radio" name="q19" value="c"> trabajaba</label>
+                                    </div>
+                                    <div id="feedback-q19" class="question-feedback"></div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S11 Can-do 与跳转 -->
+                <div class="slide">
+                    <div class="lesson-module">
+                        <h2>11. Can-do 与下一步</h2>
+                        <ul>
+                            <li>我能在叙事中正确选择 Indefinido/Imperfecto/Perfecto。</li>
+                            <li>我能用 Futuro/Condicional 完成预测/礼貌请求。</li>
+                            <li>我能识别 Subjuntivo 的常见触发；在语境中正确使用 Por/Para。</li>
+                            <li>我能完成一封含截止与礼貌收尾的简短邮件；完成 60 秒口语 pitch。</li>
+                        </ul>
+                        <div class="practice-box">
+                            <div class="title">进一步学习</div>
+                            <p>
+                                速查与练习：
+                                <a href="toolkit.html">职场沟通工具包</a> ·
+                                <a href="practice.html">练习中心</a> ·
+                                <a href="expressions.html">常用表达手册</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <div class="pagination-controls">
+                <div class="pagination-inner">
+                    <button id="prev-btn" title="上一页">«</button>
+                    <div class="select-wrapper">
+                        <select id="slide-jump-menu" class="slide-jump-menu"></select>
+                    </div>
+                    <span id="page-counter"></span>
+                    <button id="next-btn" title="下一页">»</button>
+                </div>
+            </div>
+
+            <footer>
+                <div class="inter-lesson-nav">
+                    <a id="prev-lesson-link" class="nav-link hidden" href="#">« 上一课</a>
+                    <a id="home-link" class="nav-link" href="index.html">返回目录</a>
+                    <a id="next-lesson-link" class="nav-link hidden" href="#">下一课 »</a>
+                </div>
+                <p>阶段复习 | 线上视频教学适用</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/course-data.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+
+</html>

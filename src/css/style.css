@@ -96,7 +96,7 @@ code {
     color: #d63384;
 }
 
-.practice-box, .english-comparison, .goal-box, .company-item {
+.practice-box, .english-comparison, .goal-box, .company-item, .tip-box {
     padding: 15px;
     margin-top: 20px;
     border-radius: 5px;
@@ -105,6 +105,8 @@ code {
 .english-comparison { background-color: #fff3cd; border-left: 5px solid #ffc107; }
 .goal-box { background-color: #d1e7dd; border-left: 5px solid #28a745; }
 .company-item { background-color: #f8f9fa; border-left: 5px solid #6c757d; }
+/* Supplemental rule/contrast boxes used inside sections */
+.tip-box { background-color: #f3e8ff; border-left: 5px solid #6f42c1; }
 
 .break-section {
     text-align: center;

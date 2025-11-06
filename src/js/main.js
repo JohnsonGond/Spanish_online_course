@@ -371,11 +371,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         `feedback-${qName}`,
                     );
                     if (!feedbackEl) return;
-                    feedbackEl.textContent =
-                        sValue === quizAnswers[qName]
-                            ? '正确! (Correct!)'
-                            : '错误 (Incorrect)';
-                    feedbackEl.className = `question-feedback ${sValue === quizAnswers[qName] ? 'feedback-correct' : 'feedback-incorrect'}`;
+                    const isCorrect = sValue === quizAnswers[qName];
+                    const explanations = courseData.explanations || {};
+                    const pageExplanations = explanations[currentPagePath] || {};
+                    const extra = pageExplanations[qName] || '';
+                    const base = isCorrect
+                        ? '正确! (Correct!)'
+                        : '错误 (Incorrect)';
+                    feedbackEl.textContent = extra ? `${base} — ${extra}` : base;
+                    feedbackEl.className = `question-feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
                 });
             });
     }
