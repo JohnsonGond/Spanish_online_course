@@ -7,52 +7,42 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .course-menu {
-            text-align: center;
-        }
-        .course-menu h1 {
-            margin-bottom: 40px;
-        }
-        .course-menu ul {
-            list-style: none;
-            padding: 0;
-        }
-        .course-menu li {
-            margin-bottom: 20px;
-        }
-        .course-menu a {
-            display: block;
-            padding: 20px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .course-menu a.expressions-link {
-            background-color: #28a745; /* A different color to stand out */
-        }
-        .course-menu a:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
-        }
-        .course-menu a.expressions-link:hover {
-            background-color: #218838;
-        }
+        .course-menu { text-align: center; }
+        .course-menu h1 { margin-bottom: 24px; }
+        .section-title { margin: 28px 0 16px; color: #495057; font-size: 1.1em; text-align: left; display: inline-block; }
+        .course-menu ul { list-style: none; padding: 0; max-width: 720px; margin: 0 auto; }
+        .course-menu li { margin-bottom: 14px; }
+        .course-menu a { display: block; padding: 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 8px; font-size: 1.05em; transition: background-color 0.2s, transform 0.15s; }
+        .course-menu a:hover { background-color: #0056b3; transform: translateY(-2px); }
+        /* functional links use subdued green/gray to distinguish from main lessons */
+        .tools-list a { background-color: #17a2b8; }
+        .tools-list a:hover { background-color: #117a8b; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="course-menu">
             <h1>赵文清的西班牙语课程</h1>
-            <ul>
-                <li><a href="lesson-01.html">第一课：西班牙语深度入门</a></li>
-                <li><a href="lesson-02.html">第二课：我的日常生活</a></li>
-                <li><a href="lesson-03.html">第三课：过去的故事</a></li>
-                <li><a href="expressions.html" class="expressions-link">常用表达查询手册</a></li>
-            </ul>
-        </div>
+            <div class="sections">
+                <div>
+                    <span class="section-title">主线课程</span>
+                    <ul class="course-list">
+                        <li><a href="lesson-01.html">第一课：西班牙语深度入门</a></li>
+                        <li><a href="lesson-02.html">第二课：我的日常生活</a></li>
+                        <li><a href="lesson-03.html">第三课：过去的故事</a></li>
+                        <li><a href="lesson-04.html">第四课：未来的计划与假设</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="section-title">功能与工具</span>
+                    <ul class="tools-list">
+                        <li><a href="expressions.html">常用表达查询手册</a></li>
+                        <li><a href="practice.html">练习中心（影子跟读 + 填空）</a></li>
+                        <li><a href="toolkit.html">职场沟通工具包</a></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
     </div>
 </body>
 </html>

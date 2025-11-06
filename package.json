@@ -8,7 +8,11 @@
     "start": "serve src",
     "build": "echo \"No build required.\"",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --project=chromium --headed",
+    "test:e2e:report": "playwright show-report"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
@@ -17,6 +21,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^15.0.0",
     "prettier": "^3.6.2",
-    "serve": "^14.2.5"
+    "serve": "^14.2.5",
+    "@playwright/test": "^1.48.0"
   }
 }

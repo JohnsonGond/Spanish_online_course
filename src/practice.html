@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习中心</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <style></style>
+</head>
+
+<body class="practice-page">
+    <div class="content-wrapper">
+        <div class="container">
+            <header>
+                <h1>练习中心（影子跟读 + 填空）</h1>
+                <p>按序播放句子进行影子跟读；或用填空题巩固关键表达。</p>
+            </header>
+
+            <main>
+                <div class="lesson-module">
+                    <h2>1. 影子跟读（Shadowing）</h2>
+                    <div class="tool-row">
+                        <button id="shadow-start" class="btn-outline-primary">开始</button>
+                        <button id="shadow-stop" class="btn-outline-primary">停止</button>
+                        <label>每句停顿（秒）：<input id="shadow-pause" class="form-control" type="number" min="1" max="8" value="3"></label>
+                        <label><input id="shadow-slow" type="checkbox"> 慢速播放</label>
+                    </div>
+                    <div id="shadowing-list">
+                        <div class="shadowing-line">
+                            <span class="index">1</span>
+                            <code>La semana que viene presentaré el informe.</code>
+                            <span class="speak-icon" data-text="La semana que viene presentaré el informe."></span>
+                            <span class="speak-icon-slow" data-text="La semana que viene presentaré el informe."></span>
+                        </div>
+                        <div class="shadowing-line">
+                            <span class="index">2</span>
+                            <code>¿Podrías compartirlo antes del viernes?</code>
+                            <span class="speak-icon" data-text="¿Podrías compartirlo antes del viernes?"></span>
+                            <span class="speak-icon-slow" data-text="¿Podrías compartirlo antes del viernes?"></span>
+                        </div>
+                        <div class="shadowing-line">
+                            <span class="index">3</span>
+                            <code>Ojalá tengamos todos los datos.</code>
+                            <span class="speak-icon" data-text="Ojalá tengamos todos los datos."></span>
+                            <span class="speak-icon-slow" data-text="Ojalá tengamos todos los datos."></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-module">
+                    <h2>2. 关键表达填空（Cloze）</h2>
+                    <div class="practice-box cloze-item">
+                        <div>礼貌请求（condicional）：¿<input data-answer="Podrías" placeholder="_____"/> revisar el informe?</div>
+                        <div class="answer"><details><summary>查看答案</summary>Podrías</details></div>
+                    </div>
+                    <div class="practice-box cloze-item">
+                        <div>Subjuntivo 触发：Es importante que ____ a tiempo. <small>(llegar)</small></div>
+                        <input data-answer="lleguemos" placeholder="_____"/>
+                        <div class="answer"><details><summary>查看答案</summary>lleguemos（或按主语变位）</details></div>
+                    </div>
+                    <div class="practice-box cloze-item">
+                        <div>Por/Para：Es ____ mañana.（截止）</div>
+                        <input data-answer="para" placeholder="_____"/>
+                        <div class="answer"><details><summary>查看答案</summary>para</details></div>
+                    </div>
+                </div>
+
+                <div class="lesson-module">
+                    <h2>3. 邮件写作训练器（生成可复制文本）</h2>
+                    <div class="tool-row">
+                        <input id="gen-name" class="form-control" placeholder="你的称呼（可选）" aria-label="你的称呼"/>
+                        <input id="gen-purpose" class="form-control" placeholder="目的（如：compartir el borrador）" aria-label="目的"/>
+                        <input id="gen-deadline" class="form-control" placeholder="截止（如：para mañana）" aria-label="截止"/>
+                        <input id="gen-closing" class="form-control" placeholder="收尾（如：Gracias de antemano.）" aria-label="收尾"/>
+                        <button id="gen-build" class="btn-outline-primary">生成</button>
+                        <button id="gen-copy" class="btn-outline-primary">复制</button>
+                    </div>
+                    <div id="gen-output" class="practice-box" aria-live="polite"></div>
+                </div>
+                <div class="lesson-module">
+                    <h2>4. 时态选择（现在/简单过去/未完成时）</h2>
+                    <div class="quiz-container">
+                        <ol>
+                            <li>
+                                昨天发生的已完成动作：<br>
+                                <code>Ayer ____ (comprar) un billete.</code>
+                                <div>
+                                    <label><input type="radio" name="q1" value="a"> compro</label>
+                                    <label><input type="radio" name="q1" value="b"> compré</label>
+                                    <label><input type="radio" name="q1" value="c"> compraba</label>
+                                </div>
+                                <div id="feedback-q1" class="question-feedback"></div>
+                            </li>
+                            <li>
+                                过去经常/背景：<br>
+                                <code>Cuando era niño, ____ (jugar) al fútbol.</code>
+                                <div>
+                                    <label><input type="radio" name="q2" value="a"> juego</label>
+                                    <label><input type="radio" name="q2" value="b"> jugué</label>
+                                    <label><input type="radio" name="q2" value="c"> jugaba</label>
+                                </div>
+                                <div id="feedback-q2" class="question-feedback"></div>
+                            </li>
+                            <li>
+                                现在习惯/事实：<br>
+                                <code>Normalmente ____ (trabajar) desde casa.</code>
+                                <div>
+                                    <label><input type="radio" name="q3" value="a"> trabajo</label>
+                                    <label><input type="radio" name="q3" value="b"> trabajé</label>
+                                    <label><input type="radio" name="q3" value="c"> trabajaba</label>
+                                </div>
+                                <div id="feedback-q3" class="question-feedback"></div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </main>
+
+            <footer>
+                <div class="inter-lesson-nav">
+                    <a id="home-link" class="nav-link" href="index.html">返回目录</a>
+                </div>
+                <p>为赵文清同学定制的教学计划 | 线上视频教学适用</p>
+            </footer>
+        </div>
+    </div>
+
+    <script type="module">
+        import './js/course-data.js';
+        import './js/main.js';
+
+        // Simple shadowing controller (graceful even if TTS fails)
+        const startBtn = document.getElementById('shadow-start');
+        const stopBtn = document.getElementById('shadow-stop');
+        const pauseInput = document.getElementById('shadow-pause');
+        const slowChk = document.getElementById('shadow-slow');
+        const lines = Array.from(document.querySelectorAll('#shadowing-list .shadowing-line'));
+        let timer = null, index = 0;
+
+        function clearCurrent() {
+            lines.forEach(l => l.classList.remove('shadowing-current'));
+        }
+        function playCurrent() {
+            clearCurrent();
+            const line = lines[index];
+            if (!line) return;
+            line.classList.add('shadowing-current');
+            const toClick = line.querySelector(slowChk.checked ? '.speak-icon-slow' : '.speak-icon');
+            if (toClick) toClick.click();
+        }
+        function scheduleNext() {
+            const pauseMs = Math.max(1, parseInt(pauseInput.value || '3', 10)) * 1000;
+            timer = setTimeout(() => {
+                index = (index + 1) % lines.length;
+                playCurrent();
+                scheduleNext();
+            }, pauseMs);
+        }
+        function start() {
+            if (timer) return;
+            index = 0;
+            playCurrent();
+            scheduleNext();
+        }
+        function stop() {
+            clearTimeout(timer);
+            timer = null;
+            clearCurrent();
+        }
+        startBtn.addEventListener('click', start);
+        stopBtn.addEventListener('click', stop);
+        window.addEventListener('beforeunload', stop);
+
+        // Simple cloze checker (on blur)
+        document.querySelectorAll('[data-answer]').forEach((inp) => {
+            inp.addEventListener('blur', () => {
+                const ans = (inp.getAttribute('data-answer') || '').trim().toLowerCase();
+                const val = (inp.value || '').trim().toLowerCase();
+                if (!ans) return;
+                if (val === ans) {
+                    inp.style.borderColor = '#28a745';
+                } else {
+                    inp.style.borderColor = '#dc3545';
+                }
+            });
+        });
+
+        // Email generator
+        const genName = document.getElementById('gen-name');
+        const genPurpose = document.getElementById('gen-purpose');
+        const genDeadline = document.getElementById('gen-deadline');
+        const genClosing = document.getElementById('gen-closing');
+        const genBuild = document.getElementById('gen-build');
+        const genCopy = document.getElementById('gen-copy');
+        const genOutput = document.getElementById('gen-output');
+        const GEN_KEY = 'practiceEmailDraft';
+        const loadDraft = () => {
+            try { return JSON.parse(localStorage.getItem(GEN_KEY)) || {}; } catch { return {}; }
+        };
+        const saveDraft = (data) => localStorage.setItem(GEN_KEY, JSON.stringify(data));
+
+        function buildEmail() {
+            const name = (genName.value || '').trim();
+            const purpose = (genPurpose.value || '').trim();
+            const deadline = (genDeadline.value || '').trim();
+            const closing = (genClosing.value || '').trim();
+            const greet = 'Buenos días,';
+            const bodyParts = [];
+            if (purpose) bodyParts.push(`¿Podrías ${purpose}?`);
+            if (deadline) bodyParts.push(`Es ${deadline}.`);
+            const signoff = closing || 'Quedo atento/a.';
+            const signature = name ? `\n${name}` : '';
+            const full = `${greet}\n${bodyParts.join(' ')}\n${signoff}${signature}`;
+            genOutput.innerHTML = `<pre><code>${full.replace(/[&<>]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</code></pre>`;
+            saveDraft({ name, purpose, deadline, closing });
+        }
+        genBuild?.addEventListener('click', buildEmail);
+        genCopy?.addEventListener('click', async () => {
+            const text = genOutput.textContent || '';
+            try { await navigator.clipboard.writeText(text); genCopy.textContent = '已复制'; setTimeout(() => genCopy.textContent = '复制', 1200);} catch {}
+        });
+        const draft = loadDraft();
+        if (draft) {
+            if (draft.name) genName.value = draft.name;
+            if (draft.purpose) genPurpose.value = draft.purpose;
+            if (draft.deadline) genDeadline.value = draft.deadline;
+            if (draft.closing) genClosing.value = draft.closing;
+            buildEmail();
+        }
+    </script>
+</body>
+
+</html>

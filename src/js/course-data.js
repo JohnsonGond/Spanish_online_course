@@ -1,5 +1,5 @@
 export const courseData = {
-    lessonPlan: ['lesson-01.html', 'lesson-02.html', 'lesson-03.html'],
+    lessonPlan: ['lesson-01.html', 'lesson-02.html', 'lesson-03.html', 'lesson-04.html'],
     quizData: {
         'lesson-01.html': {
             q1: 'b',
@@ -38,6 +38,23 @@ export const courseData = {
             q8: 'c',
             q9: 'b',
             q10: 'c',
+        },
+        'lesson-04.html': {
+            q1: 'b',
+            q2: 'b',
+            q3: 'b',
+            q4: 'b',
+            q5: 'b',
+            q6: 'b',
+            q7: 'b',
+            q8: 'b',
+            q9: 'b',
+            q10: 'b',
+        },
+        'practice.html': {
+            q1: 'b',
+            q2: 'c',
+            q3: 'a',
         },
     },
 };
@@ -147,6 +164,48 @@ export const commonExpressions = {
                 chinese: '我要休息一下。',
             },
             { spanish: 'Buen trabajo', english: 'Good job', chinese: '干得好' },
+            { spanish: '¿Podrías encargarte de esto?', english: 'Could you take care of this?', chinese: '你能负责这件事吗？' },
+            { spanish: 'Quedamos en revisarlo mañana.', english: 'We agree to review it tomorrow.', chinese: '我们定在明天复核。' },
+        ],
+    },
+    meetings: {
+        title: '会议常用 (Meetings)',
+        expressions: [
+            { spanish: 'Empezamos si os parece.', english: "Let's begin if that's okay.", chinese: '如果大家没问题，我们开始。' },
+            { spanish: 'Vamos a revisar el plan.', english: 'Let’s review the plan.', chinese: '我们来过一下计划。' },
+            { spanish: 'Por un lado..., además...', english: 'On one hand..., in addition...', chinese: '一方面…，另外…' },
+            { spanish: '¿Alguna duda o comentario?', english: 'Any questions or comments?', chinese: '有问题或意见吗？' },
+            { spanish: 'Entonces, quedamos así...', english: 'So, we agree as follows...', chinese: '那么，我们这样定…' },
+        ],
+    },
+    email_signoffs: {
+        title: '邮件收尾 (Email Sign-offs)',
+        expressions: [
+            { spanish: 'Gracias de antemano.', english: 'Thanks in advance.', chinese: '先行致谢。' },
+            { spanish: 'Quedo atento/a.', english: 'I remain attentive.', chinese: '静候回复。' },
+            { spanish: 'Un saludo.', english: 'Regards.', chinese: '此致问候。' },
+            { spanish: 'Saludos cordiales.', english: 'Kind regards.', chinese: '致以诚挚问候。' },
+        ],
+    },
+    work_softeners: {
+        title: '职场礼貌与缓和 (Politeness & Softeners)',
+        expressions: [
+            { spanish: '¿Te parece si…?', english: 'Do you mind if…?', chinese: '你介意…吗？/ 你看可以…吗？' },
+            { spanish: '¿Podrías…?', english: 'Could you…?', chinese: '你能…吗？（更礼貌）' },
+            { spanish: '¿Sería posible…?', english: 'Would it be possible…?', chinese: '有可能…吗？' },
+            { spanish: 'Cuando puedas, …', english: 'When you can, …', chinese: '方便的时候，请…' },
+            { spanish: 'Me gustaría…', english: 'I would like…', chinese: '我想…（委婉）' },
+            { spanish: 'Quedo atento/a.', english: 'I remain attentive.', chinese: '静候回复。' },
+            { spanish: 'Gracias de antemano.', english: 'Thanks in advance.', chinese: '先行致谢。' },
+        ],
+    },
+    spainisms: {
+        title: '西班牙本土常用 (Spainisms)',
+        expressions: [
+            { spanish: 'ordenador', english: 'computer (Spain)', chinese: '电脑（西班牙用法，拉美常用 computador）' },
+            { spanish: 'vale', english: 'okay/sure', chinese: '好的/行（口语高频）' },
+            { spanish: 'coger', english: 'to take/pick up (neutral in Spain)', chinese: '拿/搭乘（西班牙中性，部分拉美地区有粗俗含义）' },
+            { spanish: 'móvil', english: 'mobile phone (Spain)', chinese: '手机（西班牙用法，拉美常用 celular）' },
         ],
     },
 };

@@ -70,6 +70,26 @@
 
 ## 开发日志 (Changelog)
 
+### 2025-11-06: 第四课上线 + 练习与工具页、体验优化
+- 课程内容
+  - 新增 `src/lesson-04.html`（未来的计划与假设）：覆盖 Futuro/Condicional/Subjuntivo（入门）/Imperativo、Por vs. Para、比较级与最高级；含可点读（正常/慢速）、产出任务（口语 Pitch、邮件微写作）、小测（10 题）。
+  - 修复与微调：将 Subjuntivo 分拣移至对应章节；Por/Para 分拣中 “por la tarde” 分类错误已更正。
+- 练习与工具
+  - 新增 `src/practice.html`（练习中心）：影子跟读（可调停顿/慢速）、关键表达填空、时态选择（现在/简单过去/未完成）判分、邮件写作生成器（本地存储草稿）。
+  - 新增 `src/toolkit.html`（职场沟通工具包）：邮件模板→收尾语→会议表达→会议纪要→建议与礼貌请求→STAR→Por/Para 速查→面试自我介绍；全部示例补全慢速发音。
+- 常用表达库
+  - 扩充 `src/js/course-data.js`：新增 Meetings、Email Sign-offs、Politeness & Softeners、Spainisms；表达页新增搜索与收藏（localStorage 持久化）。
+- 交互与可访问性
+  - 统一 speak 图标可访问性：添加 `aria-label`/`role`/`tabindex`，支持 Enter/Space 触发；在 expressions 与 lesson 页面动态/静态节点均生效。
+  - 新增拖拽分拣练习（Por vs. Para、Subjuntivo 触发）：HTML5 DnD，无外部依赖，正确/错误高亮反馈。
+- UI/UX
+  - 首页分区：将主线课程与功能工具分区展示（颜色区隔），提升信息结构与可扫读性。
+  - 练习中心与工具包底部“返回目录”居中对齐；练习中心工具栏/按钮/输入使用统一风格（`.tool-row`/`.btn-outline-primary`/`.form-control`）。
+  - lesson-04 小测提示改为“即时反馈”。
+- 其他
+  - 初步建立 E2E 用例与配置（Playwright），用于本地端到端验证；当前不纳入 CI 与日常流程。
+
+
 ### 2025-11-05: 工程化与规范化改进 (Tooling & Code Quality)
 - 目标：稳定编码显示、统一代码规范、在不影响部署的前提下引入持续检查。
 - 已完成：

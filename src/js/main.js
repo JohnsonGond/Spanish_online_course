@@ -28,63 +28,161 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('expressions-container');
         if (!container) return;
 
-        // Clear any existing content
+        // Favorites state
+        const FAV_KEY = 'expressionFavorites';
+        const loadFavorites = () => {
+            try {
+                return new Set(JSON.parse(localStorage.getItem(FAV_KEY)) || []);
+            } catch {
+                return new Set();
+            }
+        };
+        const saveFavorites = (set) => {
+            localStorage.setItem(FAV_KEY, JSON.stringify(Array.from(set)));
+        };
+        let favorites = loadFavorites();
+        let searchQuery = '';
+        let showOnlyFavorites = false;
+
+        // Clear
         container.innerHTML = '';
 
-        for (const categoryKey in commonExpressions) {
-            const category = commonExpressions[categoryKey];
+        // Toolbar
+        const toolbar = document.createElement('div');
+        toolbar.className = 'expressions-toolbar';
+        const searchInput = document.createElement('input');
+        searchInput.type = 'search';
+        searchInput.placeholder = '搜索（西语/英语/中文）';
+        searchInput.setAttribute('aria-label', '搜索常用表达');
+        const favToggleLabel = document.createElement('label');
+        favToggleLabel.className = 'fav-toggle-label';
+        const favToggle = document.createElement('input');
+        favToggle.type = 'checkbox';
+        favToggle.setAttribute('aria-label', '仅看收藏');
+        const favToggleText = document.createElement('span');
+        favToggleText.textContent = '仅看收藏';
+        favToggleLabel.appendChild(favToggle);
+        favToggleLabel.appendChild(favToggleText);
+        toolbar.appendChild(searchInput);
+        toolbar.appendChild(favToggleLabel);
+        container.appendChild(toolbar);
 
-            // Create card for the category
-            const categoryCard = document.createElement('div');
-            categoryCard.className = 'expression-card';
+        // Render
+        const render = () => {
+            container.querySelectorAll('.expression-card').forEach((n) => n.remove());
 
-            // Create and append title
-            const cardTitle = document.createElement('h2');
-            cardTitle.textContent = category.title;
-            categoryCard.appendChild(cardTitle);
+            for (const categoryKey in commonExpressions) {
+                const category = commonExpressions[categoryKey];
 
-            // Create list for expressions
-            const expressionsList = document.createElement('ul');
-            expressionsList.className = 'expression-list';
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'expression-card';
+                const cardTitle = document.createElement('h2');
+                cardTitle.textContent = category.title;
+                categoryCard.appendChild(cardTitle);
 
-            category.expressions.forEach((expr) => {
-                const listItem = document.createElement('li');
+                const expressionsList = document.createElement('ul');
+                expressionsList.className = 'expression-list';
 
-                const spanishSpan = document.createElement('span');
-                spanishSpan.className = 'lang-es';
-                spanishSpan.textContent = expr.spanish;
-                listItem.appendChild(spanishSpan);
+                category.expressions.forEach((expr) => {
+                    const key = `${categoryKey}::${expr.spanish}`;
+                    const haystack = `${expr.spanish} ${expr.english} ${expr.chinese}`.toLowerCase();
+                    const matchQuery = searchQuery
+                        ? haystack.includes(searchQuery.toLowerCase())
+                        : true;
+                    const matchFav = showOnlyFavorites ? favorites.has(key) : true;
+                    if (!matchQuery || !matchFav) return;
 
-                // Add speak icon (normal speed)
-                const speakIcon = document.createElement('span');
-                speakIcon.className = 'speak-icon';
-                speakIcon.setAttribute('data-text', expr.spanish);
-                listItem.appendChild(speakIcon);
+                    const listItem = document.createElement('li');
 
-                // Add speak icon (slow speed)
-                const speakIconSlow = document.createElement('span');
-                speakIconSlow.className = 'speak-icon-slow';
-                speakIconSlow.setAttribute('data-text', expr.spanish);
-                listItem.appendChild(speakIconSlow);
+                    // Favorite icon
+                    const favIcon = document.createElement('span');
+                    favIcon.className = 'favorite-icon';
+                    favIcon.setAttribute('role', 'button');
+                    favIcon.setAttribute('tabindex', '0');
+                    favIcon.setAttribute(
+                        'aria-label',
+                        favorites.has(key)
+                            ? `取消收藏：${expr.spanish}`
+                            : `收藏：${expr.spanish}`,
+                    );
+                    if (favorites.has(key)) favIcon.classList.add('active');
+                    const toggleFav = () => {
+                        if (favorites.has(key)) {
+                            favorites.delete(key);
+                        } else {
+                            favorites.add(key);
+                        }
+                        saveFavorites(favorites);
+                        render();
+                    };
+                    favIcon.addEventListener('click', toggleFav);
+                    favIcon.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleFav();
+                        }
+                    });
+                    listItem.appendChild(favIcon);
 
-                const englishSpan = document.createElement('span');
-                englishSpan.className = 'lang-en';
-                englishSpan.textContent = expr.english;
-                listItem.appendChild(englishSpan);
+                    const spanishSpan = document.createElement('span');
+                    spanishSpan.className = 'lang-es';
+                    spanishSpan.textContent = expr.spanish;
+                    listItem.appendChild(spanishSpan);
 
-                const chineseSpan = document.createElement('span');
-                chineseSpan.className = 'lang-zh';
-                chineseSpan.textContent = expr.chinese;
-                listItem.appendChild(chineseSpan);
+                    const speakIcon = document.createElement('span');
+                    speakIcon.className = 'speak-icon';
+                    speakIcon.setAttribute('data-text', expr.spanish);
+                    speakIcon.setAttribute('title', '发音');
+                    speakIcon.setAttribute('aria-label', `播放发音：${expr.spanish}`);
+                    speakIcon.setAttribute('role', 'button');
+                    speakIcon.setAttribute('tabindex', '0');
+                    listItem.appendChild(speakIcon);
 
-                expressionsList.appendChild(listItem);
-            });
+                    const speakIconSlow = document.createElement('span');
+                    speakIconSlow.className = 'speak-icon-slow';
+                    speakIconSlow.setAttribute('data-text', expr.spanish);
+                    speakIconSlow.setAttribute('title', '慢速发音');
+                    speakIconSlow.setAttribute(
+                        'aria-label',
+                        `慢速播放发音：${expr.spanish}`,
+                    );
+                    speakIconSlow.setAttribute('role', 'button');
+                    speakIconSlow.setAttribute('tabindex', '0');
+                    listItem.appendChild(speakIconSlow);
 
-            categoryCard.appendChild(expressionsList);
-            container.appendChild(categoryCard);
-        }
+                    const englishSpan = document.createElement('span');
+                    englishSpan.className = 'lang-en';
+                    englishSpan.textContent = expr.english;
+                    listItem.appendChild(englishSpan);
 
-        // After creating all new speak icons, the global call at the end of the script will initialize them.
+                    const chineseSpan = document.createElement('span');
+                    chineseSpan.className = 'lang-zh';
+                    chineseSpan.textContent = expr.chinese;
+                    listItem.appendChild(chineseSpan);
+
+                    expressionsList.appendChild(listItem);
+                });
+
+                categoryCard.appendChild(expressionsList);
+                container.appendChild(categoryCard);
+            }
+
+            // Re-init speak handlers for new nodes
+            initializeSpeakIcons();
+        };
+
+        // Bind events
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value || '';
+            render();
+        });
+        favToggle.addEventListener('change', (e) => {
+            showOnlyFavorites = !!e.target.checked;
+            render();
+        });
+
+        // Initial render
+        render();
     }
 
     // --- MAIN SLIDE-PAGINATION LOGIC ---
@@ -211,11 +309,36 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         };
 
+        // Enhance accessibility and attach handlers
         document.querySelectorAll('.speak-icon').forEach((icon) => {
+            const text = icon.getAttribute('data-text') || '';
+            if (!icon.hasAttribute('title')) icon.setAttribute('title', '发音');
+            icon.setAttribute('aria-label', `播放发音：${text}`);
+            icon.setAttribute('role', 'button');
+            icon.setAttribute('tabindex', '0');
+            const onKey = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    icon.click();
+                }
+            };
+            icon.addEventListener('keydown', onKey);
             icon.addEventListener('click', createSpeakHandler('default'));
         });
 
         document.querySelectorAll('.speak-icon-slow').forEach((icon) => {
+            const text = icon.getAttribute('data-text') || '';
+            if (!icon.hasAttribute('title')) icon.setAttribute('title', '慢速发音');
+            icon.setAttribute('aria-label', `慢速播放发音：${text}`);
+            icon.setAttribute('role', 'button');
+            icon.setAttribute('tabindex', '0');
+            const onKey = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    icon.click();
+                }
+            };
+            icon.addEventListener('keydown', onKey);
             icon.addEventListener('click', createSpeakHandler('slow'));
         });
     }
@@ -435,8 +558,53 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeFlashcards();
     initializeQuiz();
     initializeStopwatch();
+    initializeDragDropPractice();
 
     // Initialize speak icons found on the page at load time.
     // Note: For expressions page, this is called again after dynamic content is created.
     initializeSpeakIcons();
 });
+
+// --- Drag & Drop Practice (Por vs Para etc.) ---
+function initializeDragDropPractice() {
+    const boards = document.querySelectorAll('.dnd-board');
+    if (!boards.length) return;
+
+    boards.forEach((board) => {
+        const items = board.querySelectorAll('.dnd-item');
+        const dropzones = board.querySelectorAll('.dnd-dropzone');
+        const pool = board.querySelector('.dnd-pool');
+
+        items.forEach((item) => {
+            item.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', 'dragging');
+                e.dataTransfer.setData('text/id', (item.dataset.id = item.dataset.id || Math.random().toString(36).slice(2)));
+                item.classList.remove('dnd-correct', 'dnd-incorrect');
+            });
+        });
+
+        function handleDrop(e, dest) {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/id');
+            const dragged = Array.from(board.querySelectorAll('.dnd-item')).find((x) => x.dataset.id === id);
+            if (!dragged) return;
+            dest.appendChild(dragged);
+            // Mark correctness if dropped into a labeled column
+            const bucketEl = dest.closest('.dnd-column');
+            if (bucketEl && bucketEl.dataset.bucket) {
+                const expected = dragged.dataset.category;
+                const got = bucketEl.dataset.bucket;
+                dragged.classList.remove('dnd-correct', 'dnd-incorrect');
+                dragged.classList.add(expected === got ? 'dnd-correct' : 'dnd-incorrect');
+            } else {
+                dragged.classList.remove('dnd-correct', 'dnd-incorrect');
+            }
+        }
+
+        [...dropzones, pool].forEach((dz) => {
+            if (!dz) return;
+            dz.addEventListener('dragover', (e) => e.preventDefault());
+            dz.addEventListener('drop', (e) => handleDrop(e, dz));
+        });
+    });
+}

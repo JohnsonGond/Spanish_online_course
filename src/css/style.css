@@ -719,3 +719,108 @@ footer {
 .expressions-page #home-link {
     justify-self: auto; /* Override grid's justify-self for this specific case */
 }
+
+/* Center bottom nav for toolkit/practice pages */
+.toolkit-page .inter-lesson-nav,
+.practice-page .inter-lesson-nav {
+    display: flex;
+    justify-content: center;
+}
+.toolkit-page #home-link,
+.practice-page #home-link {
+    justify-self: auto;
+}
+
+/* NEW: Expressions toolbar */
+.expressions-toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0 20px 0;
+}
+.expressions-toolbar input[type='search'] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95em;
+}
+.fav-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #495057;
+    font-size: 0.95em;
+}
+
+/* NEW: Favorite icon */
+.favorite-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #adb5bd;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    vertical-align: middle;
+}
+.favorite-icon.active {
+    background-color: #ffc107; /* gold */
+}
+
+/* NEW: Drag & Drop practice */
+.dnd-board { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+.dnd-column { background: #f8f9fa; border: 1px dashed #ced4da; border-radius: 8px; min-height: 160px; padding: 10px; }
+.dnd-column-header { font-weight: 600; color: #495057; margin-bottom: 8px; }
+.dnd-pool { margin-top: 12px; border-top: 1px solid #e9ecef; padding-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+.dnd-item { background: #ffffff; border: 1px solid #dee2e6; border-radius: 6px; padding: 8px 10px; cursor: grab; user-select: none; }
+.dnd-item:active { cursor: grabbing; }
+.dnd-dropzone { min-height: 100px; display: flex; flex-direction: column; gap: 8px; }
+.dnd-correct { outline: 2px solid #28a745; }
+.dnd-incorrect { outline: 2px solid #dc3545; }
+@media (max-width: 767px) { .dnd-board { grid-template-columns: 1fr; } }
+
+/* NEW: Practice center visual consistency */
+.tool-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 10px 0 16px 0;
+}
+.btn-outline-primary {
+    background-color: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.btn-outline-primary:hover { background-color: #007bff; color: #ffffff; }
+.btn-outline-primary:disabled { color: #adb5bd; border-color: #adb5bd; cursor: not-allowed; }
+.form-control {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95em;
+}
+.tool-row input[type='number'] { width: 80px; }
+.shadowing-line {
+    padding: 10px 12px;
+    border-left: 4px solid #17a2b8;
+    background: #e6f7ff;
+    border-radius: 0 6px 6px 0;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.shadowing-line .index { font-weight: bold; color: #0c5460; margin-right: 6px; }
+.shadowing-current { outline: 2px dashed #17a2b8; }
+.cloze-item { margin: 10px 0; }
+.cloze-item input { padding: 6px 8px; border: 1px solid #ced4da; border-radius: 6px; }
+.cloze-item .answer { color: #6c757d; margin-left: 8px; }
