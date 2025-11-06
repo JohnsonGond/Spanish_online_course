@@ -1,5 +1,5 @@
 export const courseData = {
-    lessonPlan: ['lesson-01.html', 'lesson-02.html', 'lesson-03.html', 'lesson-04.html'],
+    lessonPlan: ['lesson-01.html', 'lesson-02.html', 'lesson-03.html', 'lesson-04.html', 'lesson-review-01.html'],
     quizData: {
         'lesson-01.html': {
             q1: 'b',
