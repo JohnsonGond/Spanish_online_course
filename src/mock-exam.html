@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELE B1 模拟实战</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .exam-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            border-radius: 0 8px 8px 0;
+        }
+        .exam-section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .cloze-text {
+            line-height: 2.2;
+            font-size: 1.1em;
+        }
+        .cloze-input {
+            border: none;
+            border-bottom: 2px solid #6c757d;
+            background: transparent;
+            width: 120px;
+            text-align: center;
+            font-weight: bold;
+            color: #007bff;
+            padding: 0 5px;
+        }
+        .cloze-input:focus {
+            outline: none;
+            border-bottom-color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <div class="container">
+            <header>
+                <h1>DELE B1 模拟实战 (Simulacro de Examen)</h1>
+                <p>实战演练：阅读理解与语言运用</p>
+            </header>
+
+            <main>
+                <!-- Tarea 1: Reading Comprehension -->
+                <div class="exam-section">
+                    <h2>第一部分：阅读理解 (Comprensión de Lectura)</h2>
+                    <p class="instruction">阅读下面的文章，回答第 1-3 题。</p>
+                    
+                    <div class="exam-text">
+                        <h3>Teletrabajo: ¿El futuro de España?</h3>
+                        <p>
+                            Desde 2020, la forma de trabajar en España ha cambiado radicalmente. Antes, la cultura del "presentismo" (estar en la oficina muchas horas) era la norma. Sin embargo, hoy en día, muchas empresas permiten a sus empleados trabajar desde casa dos o tres días a la semana.
+                        </p>
+                        <p>
+                            Para los profesionales, las ventajas son claras: ahorran tiempo en transporte y pueden conciliar mejor su vida laboral y familiar. "Si no tuviera que ir a la oficina todos los días, viviría en un pueblo más tranquilo," dice Marta, una ingeniera de software de Madrid. Además, España se está convirtiendo en un destino favorito para los "nómadas digitales" extranjeros, gracias a su buen clima y al coste de vida relativamente bajo.
+                        </p>
+                        <p>
+                            No obstante, existen desafíos. Algunos jefes creen que la productividad baja si no supervisan a sus equipos presencialmente. Por eso, los expertos recomiendan un modelo híbrido. Es probable que, en el futuro, las oficinas sean solo lugares para reunirse y socializar, no para trabajar ocho horas frente a una pantalla.
+                        </p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <div class="quiz-question">
+                            <p><strong>1. Según el texto, ¿cómo era antes la cultura laboral en España?</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="r1" value="a"> Extremadamente flexible y orientada a resultados.</label>
+                                <label><input type="radio" name="r1" value="b"> Se enfatizaba estar muchas horas en la oficina.</label>
+                                <label><input type="radio" name="r1" value="c"> Se animaba a los empleados a trabajar desde casa.</label>
+                            </div>
+                            <div id="feedback-r1" class="question-feedback"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <p><strong>2. ¿Qué ilustra la opinión de Marta citada en el texto?</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="r2" value="a"> El teletrabajo permite elegir dónde vivir.</label>
+                                <label><input type="radio" name="r2" value="b"> Los ingenieros prefieren trabajar en la ciudad.</label>
+                                <label><input type="radio" name="r2" value="c"> Su empresa no permite el teletrabajo.</label>
+                            </div>
+                            <div id="feedback-r2" class="question-feedback"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <p><strong>3. ¿Qué recomiendan los expertos para el futuro?</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="r3" value="a"> Volver totalmente al trabajo presencial.</label>
+                                <label><input type="radio" name="r3" value="b"> Que las oficinas sean solo para socializar, no para trabajar.</label>
+                                <label><input type="radio" name="r3" value="c"> Adoptar un modelo híbrido que combine trabajo remoto y presencial.</label>
+                            </div>
+                            <div id="feedback-r3" class="question-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarea 2: Grammar & Vocabulary Cloze -->
+                <div class="exam-section">
+                    <h2>第二部分：语言运用 (Uso de la Lengua)</h2>
+                    <p class="instruction">阅读短文，从选项中选择最恰当的词填空。</p>
+
+                    <div class="exam-text cloze-text">
+                        Hola Carlos:<br><br>
+                        Te escribo este correo (4) ____ contarte mis novedades. Finalmente, la empresa me ha dado el puesto que quería. ¡Estoy muy contento!
+                        <br><br>
+                        Mi jefe me dijo que (5) ____ importante que yo (6) ____ (aprender) bien inglés para el nuevo cargo. Por eso, el mes que viene (7) ____ (empezar) un curso intensivo.
+                        <br><br>
+                        (8) ____ (Si) apruebo el examen final, la empresa me pagará un viaje a Londres. ¡Ojalá todo (9) ____ (salir) bien!
+                        <br><br>
+                        Un abrazo,<br>
+                        Luis
+                    </div>
+
+                    <div class="quiz-container">
+                        <div class="quiz-question">
+                            <p><strong>4. Selección de preposición:</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="g1" value="a"> por</label>
+                                <label><input type="radio" name="g1" value="b"> para</label>
+                                <label><input type="radio" name="g1" value="c"> de</label>
+                            </div>
+                            <div id="feedback-g1" class="question-feedback"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <p><strong>5. Completar frase (Descripción en pasado): "...me dijo que ____ importante..."</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="g2" value="a"> es</label>
+                                <label><input type="radio" name="g2" value="b"> fue</label>
+                                <label><input type="radio" name="g2" value="c"> era</label>
+                            </div>
+                            <div id="feedback-g2" class="question-feedback"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <p><strong>6. Selección de verbo (Subjuntivo: es importante que...):</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="g3" value="a"> aprenda</label>
+                                <label><input type="radio" name="g3" value="b"> aprendo</label>
+                                <label><input type="radio" name="g3" value="c"> aprenderé</label>
+                            </div>
+                            <div id="feedback-g3" class="question-feedback"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <p><strong>7. Selección de tiempo (Plan futuro):</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="g4" value="a"> empezaré</label>
+                                <label><input type="radio" name="g4" value="b"> empezaría</label>
+                                <label><input type="radio" name="g4" value="c"> he empezado</label>
+                            </div>
+                            <div id="feedback-g4" class="question-feedback"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <p><strong>8. Condicional (Si + Presente): "Si ____ el examen..."</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="g5" value="a"> aprobaré</label>
+                                <label><input type="radio" name="g5" value="b"> apruebo</label>
+                                <label><input type="radio" name="g5" value="c"> aprobara</label>
+                            </div>
+                            <div id="feedback-g5" class="question-feedback"></div>
+                        </div>
+
+                         <div class="quiz-question">
+                            <p><strong>9. Completar frase (Ojalá + Subjuntivo): "Ojalá todo ____ bien."</strong></p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="g6" value="a"> sale</label>
+                                <label><input type="radio" name="g6" value="b"> saldrá</label>
+                                <label><input type="radio" name="g6" value="c"> salga</label>
+                            </div>
+                            <div id="feedback-g6" class="question-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <footer style="text-align: center;">
+                <div class="inter-lesson-nav" style="justify-content: center;">
+                    <a id="home-link" class="nav-link" href="index.html">返回目录</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 引用主逻辑以启用判分 -->
+    <script src="js/course-data.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+
+</html>
